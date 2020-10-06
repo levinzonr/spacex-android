@@ -1,10 +1,10 @@
 package cz.levinzonr.spotistats.repository
 
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
-import cz.levinzonr.spotistats.domain.repository.SpaceXRepository
+import cz.levinzonr.spotistats.domain.repository.SpaceXLaunchRepository
 import java.util.*
 
-class SpaceXMockRepository : SpaceXRepository {
+class SpaceXMockLaunchRepository : SpaceXLaunchRepository {
 
     private val images = listOf(
         "https://live.staticflickr.com/65535/49635401403_96f9c322dc_o.jpg",

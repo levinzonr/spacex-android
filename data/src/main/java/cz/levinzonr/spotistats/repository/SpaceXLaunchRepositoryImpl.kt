@@ -1,14 +1,14 @@
 package cz.levinzonr.spotistats.repository
 
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
-import cz.levinzonr.spotistats.domain.repository.SpaceXRepository
+import cz.levinzonr.spotistats.domain.repository.SpaceXLaunchRepository
 import cz.levinzonr.spotistats.mappers.LaunchResponseMapper
 import cz.levinzonr.spotistats.mappers.mapWithMapper
 import cz.levinzonr.spotistats.network.Api
 
-class SpaceXRepositoryImpl(
+class SpaceXLaunchRepositoryImpl(
     private val api: Api
-) : SpaceXRepository {
+) : SpaceXLaunchRepository {
     override suspend fun getPastLaunches(): List<SpaceXLaunch> {
         return api.getPastLaunches().mapWithMapper(LaunchResponseMapper)
     }
