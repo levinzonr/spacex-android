@@ -9,6 +9,7 @@ import coil.load
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.presentation.R
 import cz.levinzonr.spotistats.presentation.extensions.inflate
+import cz.levinzonr.spotistats.presentation.extensions.loadWithPlaceholder
 import kotlinx.android.synthetic.main.item_launch.view.*
 
 class SpaceXLaunchesAdapter : ListAdapter<SpaceXLaunch, SpaceXLaunchesAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -25,7 +26,7 @@ class SpaceXLaunchesAdapter : ListAdapter<SpaceXLaunch, SpaceXLaunchesAdapter.Vi
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(spaceXLaunch: SpaceXLaunch) {
-            view.launchIv.load(spaceXLaunch.thumbnail)
+            view.launchIv.loadWithPlaceholder(spaceXLaunch.thumbnail)
             view.launchNameTv.text = spaceXLaunch.name
             view.setOnClickListener { onItemClicked.invoke(spaceXLaunch) }
         }

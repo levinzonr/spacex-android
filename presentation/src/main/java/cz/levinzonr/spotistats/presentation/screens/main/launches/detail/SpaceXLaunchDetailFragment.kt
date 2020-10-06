@@ -6,6 +6,7 @@ import coil.load
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.presentation.R
 import cz.levinzonr.spotistats.presentation.base.BaseFragment
+import cz.levinzonr.spotistats.presentation.extensions.loadWithPlaceholder
 import kotlinx.android.synthetic.main.fragment_space_x_launch_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -24,6 +25,6 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
     private fun SpaceXLaunch.bind() {
         launchDetailsDescriptionTv.text = details
         launchDetailsNameTv.text = name
-        launchDetailsIv.load(imagesUrls.firstOrNull())
+        launchDetailsIv.loadWithPlaceholder(imagesUrls.firstOrNull())
     }
 }

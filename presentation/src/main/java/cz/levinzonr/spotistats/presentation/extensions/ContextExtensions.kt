@@ -24,25 +24,6 @@ fun Activity.hideKeyboard() {
     }
 }
 
-/*fun AppCompatActivity.setDarkMode(darkMode: DarkMode) {
-    AppCompatDelegate.setDefaultNightMode(when (darkMode) {
-        DarkMode.Enabled -> AppCompatDelegate.MODE_NIGHT_YES
-        DarkMode.Disabled -> AppCompatDelegate.MODE_NIGHT_NO
-        DarkMode.FollowSystem -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-    })
-}*/
-
-/*fun Application.setDarkMode(darkMode: DarkMode) {
-    AppCompatDelegate.setDefaultNightMode(when (darkMode) {
-        DarkMode.Enabled -> AppCompatDelegate.MODE_NIGHT_YES
-        DarkMode.Disabled -> AppCompatDelegate.MODE_NIGHT_NO
-        DarkMode.FollowSystem -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-    })
-}
-
-fun Fragment.setDarkMode(darkMode: DarkMode) {
-    (activity as? AppCompatActivity)?.setDarkMode(darkMode)
-}*/
 
 fun View.dpToPx(dp: Int): Int {
     return context.dpToPx(dp)

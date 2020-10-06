@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_surface" />
+            <size
+                android:width="50dp"
+                android:height="70dp" />
+        </shape>
+    </item>
+
+    <item
+        android:width="32dp"
+        android:height="32dp"
+        android:drawable="@drawable/ic_rocket_ship"
+        android:gravity="center"
+        />
+
+</layer-list>
