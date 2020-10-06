@@ -11,11 +11,13 @@
             android:enabled="false"
             android:title="@string/main_launches" />
         <item
+            android:icon="@drawable/ic_baseline_ballot_24"
             app:showAsAction="always"
             android:id="@+id/upcomingLaunchesFragment"
             android:title="@string/main_upcoming_launches" />
 
         <item
+            android:icon="@drawable/ic_baseline_assignment_turned_in_24"
             android:id="@+id/pastLaunchesFragment"
             android:title="@string/main_past_launches" />
     </group>
@@ -29,9 +31,11 @@
             android:title="@string/main_about_spacex" />
 
         <item
+            android:icon="@drawable/ic_baseline_whatshot_24"
             android:title="@string/main_about_rockets" />
 
         <item
+            android:icon="@drawable/ic_baseline_people_24"
             android:title="@string/main_about_company" />
 
 
