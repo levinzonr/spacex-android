@@ -5,11 +5,13 @@
             android:id="@+id/main_nav_graph.xml"
     app:startDestination="@id/upcomingLaunchesFragment">
     <fragment
+        tools:layout="@layout/fragment_launches"
         android:id="@+id/upcomingLaunchesFragment"
         android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.UpcomingLaunchesFragment"
-        android:label="UpcomingLaunchesFragment" />
+        android:label="@string/main_upcoming_launches" />
     <fragment
+        tools:layout="@layout/fragment_launches"
         android:id="@+id/pastLaunchesFragment"
         android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.PastLaunchesFragment"
-        android:label="PastLaunchesFragment" />
+        android:label="@string/main_past_launches" />
 </navigation>

@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/upcomingLaunchesFragment"
-        android:title="_Upcoming Launches"/>
+        android:title="@string/main_upcoming_launches"/>
 
     <item
         android:id="@+id/pastLaunchesFragment"
-        android:title="_Past Launches"/>
+        android:title="@string/main_past_launches"/>
 
 
 </menu>

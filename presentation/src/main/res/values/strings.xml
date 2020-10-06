@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">presentation</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="com_spotify_sdk_redirect_scheme">yourscheme</string>
-    <string name="com_spotify_sdk_redirect_host">yourhost</string>
+    <string name="main_upcoming_launches">Upcoming Launches</string>
+    <string name="main_past_launches">Past Launches</string>
 </resources>
