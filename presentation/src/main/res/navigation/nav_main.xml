@@ -30,4 +30,8 @@
         app:exitAnim="@anim/fragment_close_exit"
         app:popEnterAnim="@anim/fragment_fade_enter"
         app:popExitAnim="@anim/fragment_fade_exit" />
+    <fragment
+        android:id="@+id/rocketsFragment"
+        android:name="cz.levinzonr.spotistats.presentation.screens.main.rockets.RocketsFragment"
+        android:label="RocketsFragment" />
 </navigation>

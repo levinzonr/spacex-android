@@ -1,6 +1,6 @@
 package cz.levinzonr.spotistats.domain.models
 
-class SpaceXRocket(
+data class SpaceXRocket(
     val id: String,
     val name: String,
     val images: List<String>,

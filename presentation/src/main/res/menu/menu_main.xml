@@ -31,6 +31,7 @@
             android:title="@string/main_about_spacex" />
 
         <item
+            android:id="@+id/rocketsFragment"
             android:icon="@drawable/ic_baseline_whatshot_24"
             android:title="@string/main_about_rockets" />
 
