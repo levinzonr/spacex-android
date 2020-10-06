@@ -6,14 +6,15 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import cz.levinzonr.spotistats.presentation.base.BaseFragment
-import cz.levinzonr.spotistats.presentation.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_launches.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import cz.levinzonr.spotistats.presentation.R
-class SpaceXLaunchesFragment : BaseFragment<State>() {
+abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
 
-    override val viewModel: SpaceXLaunchesViewModel by viewModel { parametersOf(Mode.Past) }
+    abstract val mode: Mode
+
+    override val viewModel: SpaceXLaunchesViewModel by viewModel { parametersOf(mode) }
 
     override val layoutRes: Int = R.layout.fragment_launches
 
@@ -33,4 +34,12 @@ class SpaceXLaunchesFragment : BaseFragment<State>() {
         layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter = this@SpaceXLaunchesFragment.adapter
     }
+}
+
+class UpcomingLaunchesFragment : SpaceXLaunchesFragment() {
+    override val mode: Mode = Mode.Upcoming
+}
+
+class PastLaunchesFragment: SpaceXLaunchesFragment() {
+    override val mode: Mode = Mode.Past
 }

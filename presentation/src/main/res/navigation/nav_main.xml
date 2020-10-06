@@ -3,12 +3,13 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/main_nav_graph.xml"
-            app:startDestination="@id/spaceXLaunchesFragment">
-
-
+    app:startDestination="@id/upcomingLaunchesFragment">
     <fragment
-        tools:layout="@layout/fragment_launches"
-        android:id="@+id/spaceXLaunchesFragment"
-        android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.SpaceXLaunchesFragment"
-        android:label="SpaceXLaunchesFragment" />
+        android:id="@+id/upcomingLaunchesFragment"
+        android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.UpcomingLaunchesFragment"
+        android:label="UpcomingLaunchesFragment" />
+    <fragment
+        android:id="@+id/pastLaunchesFragment"
+        android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.PastLaunchesFragment"
+        android:label="PastLaunchesFragment" />
 </navigation>

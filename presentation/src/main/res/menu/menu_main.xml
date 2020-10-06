@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/onRepeatFragment"
-        android:title="_Top"/>
+        android:id="@+id/upcomingLaunchesFragment"
+        android:title="_Upcoming Launches"/>
 
     <item
-        android:id="@+id/profileFragment"
-        android:title="_User"/>
+        android:id="@+id/pastLaunchesFragment"
+        android:title="_Past Launches"/>
 
 
 </menu>
