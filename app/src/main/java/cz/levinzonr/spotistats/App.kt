@@ -2,6 +2,7 @@ package cz.levinzonr.spotistats
 
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import cz.levinzonr.spotistats.inititializers.AppInitializer
 import cz.levinzonr.spotistats.injection.modules.appModule
@@ -29,6 +30,7 @@ class App : Application() {
             }
         })
         initializer.init(this)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
 
     }

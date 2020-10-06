@@ -34,6 +34,7 @@ class SpaceXLaunchDetailViewModel(
     }
 
     private fun bindInitAction(action: Action.Init) : Flow<Change> = flowOnIO {
+        emit(Change.LoadingStarted)
         getLaunchByIdInteractor.asResult().invoke(action.id)
             .isSuccess { emit(Change.LaunchLoaded(it)) }
             .isError {  }

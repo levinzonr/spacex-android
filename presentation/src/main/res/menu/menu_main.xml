@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/upcomingLaunchesFragment"
-        android:title="@string/main_upcoming_launches"/>
 
-    <item
-        android:id="@+id/pastLaunchesFragment"
-        android:title="@string/main_past_launches"/>
+    <group
+        android:id="@+id/launches">
+
+        <item
+            android:checkable="false"
+            android:enabled="false"
+            android:title="@string/main_launches" />
+        <item
+            app:showAsAction="always"
+            android:id="@+id/upcomingLaunchesFragment"
+            android:title="@string/main_upcoming_launches" />
+
+        <item
+            android:id="@+id/pastLaunchesFragment"
+            android:title="@string/main_past_launches" />
+    </group>
+
+
+    <group
+        android:id="@+id/companyData">
+        <item
+            android:checkable="false"
+            android:enabled="false"
+            android:title="@string/main_about_spacex" />
+
+        <item
+            android:title="@string/main_about_rockets" />
+
+        <item
+            android:title="@string/main_about_company" />
+
+
+
+
+
+    </group>
+
+
 
 
 </menu>

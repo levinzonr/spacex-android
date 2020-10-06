@@ -2,6 +2,7 @@ package cz.levinzonr.spotistats.presentation.screens.main.launches
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,7 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
     }
 
     override fun renderState(state: State) {
+        launchesRv.isGone = state.isLoading
         adapter.submitList(state.launches)
         progressBar.isVisible = state.isLoading
     }

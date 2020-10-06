@@ -3,4 +3,8 @@
     <string name="main_upcoming_launches">Upcoming Launches</string>
     <string name="main_past_launches">Past Launches</string>
     <string name="launch_description_label">Mission Details</string>
+    <string name="main_launches">Launches</string>
+    <string name="main_about_spacex">About SpaceX</string>
+    <string name="main_about_rockets">About Rockets</string>
+    <string name="main_about_company">About Company</string>
 </resources>
