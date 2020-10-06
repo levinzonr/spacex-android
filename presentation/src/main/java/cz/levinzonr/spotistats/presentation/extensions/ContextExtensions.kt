@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 fun Fragment.hideKeyboard() {
@@ -24,6 +26,8 @@ fun Activity.hideKeyboard() {
     }
 }
 
+val Fragment.supportActionBar: ActionBar?
+    get() = (activity as? AppCompatActivity?)?.supportActionBar
 
 fun View.dpToPx(dp: Int): Int {
     return context.dpToPx(dp)
