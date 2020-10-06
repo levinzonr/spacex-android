@@ -14,7 +14,7 @@ class SpaceXMockRepository : SpaceXRepository {
         "https://live.staticflickr.com/65535/49635985086_660be7062f_o.jpg"
     )
 
-    override fun getPastLaunches(): List<SpaceXLaunch> {
+    override suspend fun getPastLaunches(): List<SpaceXLaunch> {
         return List(10) {
             SpaceXLaunch(
                 id = UUID.randomUUID().toString(),
@@ -25,7 +25,7 @@ class SpaceXMockRepository : SpaceXRepository {
         }
     }
 
-    override fun getUpcomingLaunches(): List<SpaceXLaunch> {
+    override suspend fun getUpcomingLaunches(): List<SpaceXLaunch> {
         return List(10) {
             SpaceXLaunch(
                 id = UUID.randomUUID().toString(),
@@ -36,7 +36,7 @@ class SpaceXMockRepository : SpaceXRepository {
         }
     }
 
-    override fun getLaunchById(id: String): SpaceXLaunch {
+    override suspend fun getLaunchById(id: String): SpaceXLaunch {
         return SpaceXLaunch(
             id = UUID.randomUUID().toString(),
             imagesUrls = images,

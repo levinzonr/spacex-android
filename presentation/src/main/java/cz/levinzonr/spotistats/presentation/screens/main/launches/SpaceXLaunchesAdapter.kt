@@ -25,7 +25,7 @@ class SpaceXLaunchesAdapter : ListAdapter<SpaceXLaunch, SpaceXLaunchesAdapter.Vi
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(spaceXLaunch: SpaceXLaunch) {
-            view.launchIv.load(spaceXLaunch.imagesUrls.randomOrNull())
+            view.launchIv.load(spaceXLaunch.thumbnail)
             view.launchNameTv.text = spaceXLaunch.name
             view.setOnClickListener { onItemClicked.invoke(spaceXLaunch) }
         }

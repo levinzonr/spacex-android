@@ -1,6 +1,7 @@
 package cz.levinzonr.spotistats.presentation.screens.main.launches.detail
 
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.navArgs
 import coil.load
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.presentation.R
@@ -11,7 +12,8 @@ import org.koin.core.parameter.parametersOf
 
 class SpaceXLaunchDetailFragment : BaseFragment<State>() {
 
-    override val viewModel: SpaceXLaunchDetailViewModel by viewModel { parametersOf("id") }
+    private val args: SpaceXLaunchDetailFragmentArgs by navArgs()
+    override val viewModel: SpaceXLaunchDetailViewModel by viewModel { parametersOf(args.id) }
     override val layoutRes: Int = R.layout.fragment_space_x_launch_detail
 
     override fun renderState(state: State) {

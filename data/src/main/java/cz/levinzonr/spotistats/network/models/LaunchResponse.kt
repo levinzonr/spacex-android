@@ -9,7 +9,7 @@ data class LaunchResponse(
     val date_precision: String,
     val date_unix: Int,
     val date_utc: String,
-    val details: String,
+    val details: String?,
     val failures: List<Any>,
     val fairings: Any,
     val flight_number: Int,

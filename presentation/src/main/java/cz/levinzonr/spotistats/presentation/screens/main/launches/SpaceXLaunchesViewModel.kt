@@ -9,6 +9,7 @@ import cz.levinzonr.spotistats.presentation.extensions.flowOnIO
 import cz.levinzonr.spotistats.presentation.extensions.isError
 import cz.levinzonr.spotistats.presentation.extensions.isSuccess
 import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 
 class SpaceXLaunchesViewModel (
     private val mode: Mode,
@@ -41,6 +42,7 @@ class SpaceXLaunchesViewModel (
             Mode.Upcoming -> getUpcomingLaunchesInteractor.asResult().invoke()
             Mode.Past -> getPastLaunchesInteractor.asResult().invoke()
         }.isError {
+            Timber.e(it)
             emit(Change.LaunchesLoaded(listOf()))
         }.isSuccess {
             emit(Change.LaunchesLoaded(it))

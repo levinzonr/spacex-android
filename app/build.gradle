@@ -75,7 +75,7 @@ android {
             manifestPlaceholders = [
                     APP_NAME        : "SpotON"
             ]
-            buildConfigField "String", "API_URL", "\"https://api.spotify.com/\""
+            buildConfigField "String", "API_URL", "\"https://api.spacexdata.com/v4/\""
 
         }
         production {
@@ -85,7 +85,7 @@ android {
             manifestPlaceholders = [
                     APP_NAME        : "SpotON"
             ]
-            buildConfigField "String", "API_URL", "\"https://api.spotify.com/\""
+            buildConfigField "String", "API_URL", "\"https://api.spacexdata.com/v4/\""
         }
     }
 }
