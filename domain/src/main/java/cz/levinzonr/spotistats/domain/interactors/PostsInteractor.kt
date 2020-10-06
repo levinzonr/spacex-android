@@ -5,9 +5,9 @@ import cz.levinzonr.spotistats.domain.repository.PostRepository
 
 class PostsInteractor(
     private val postRepository: PostRepository
-) : BaseAsyncInteractor<List<Post>> {
+) : NoInputInteractor<List<Post>> {
 
-    override suspend fun invoke(): List<Post> {
-        return postRepository.getPosts(true)
+    override suspend fun invoke(input: Unit): List<Post> {
+        return listOf()
     }
 }

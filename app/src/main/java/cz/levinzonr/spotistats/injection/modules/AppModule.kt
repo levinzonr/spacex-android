@@ -7,7 +7,6 @@ val appModule = listOf(
         interactorModule,
         restModule,
         repositoryModule,
-        storageModule,
         viewModels,
         managerModule
 )

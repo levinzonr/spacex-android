@@ -19,3 +19,19 @@ data class Success<out T>(val data: T) : CompleteResult<T>()
 data class Fail(val throwable: Throwable) : CompleteResult<Nothing>()
 object Uninitialized : IncompleteResult<Nothing>()
 class Loading<out T> : IncompleteResult<T>()
+
+
+
+
+fun<I, O> Interactor<I, O>.asResult() : Interactor<I, CompleteResult<O>> {
+    return object : Interactor<I, CompleteResult<O>> {
+        override suspend fun invoke(input: I): CompleteResult<O> {
+            return try {
+                Success(this@asResult.invoke(input))
+            } catch (e: Throwable) {
+                Fail(e)
+            }
+        }
+    }
+}
+
