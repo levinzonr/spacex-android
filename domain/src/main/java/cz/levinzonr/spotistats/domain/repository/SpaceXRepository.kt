@@ -5,4 +5,5 @@ import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 interface SpaceXRepository {
     fun getPastLaunches() : List<SpaceXLaunch>
     fun getUpcomingLaunches() : List<SpaceXLaunch>
+    fun getLaunchById(id: String) : SpaceXLaunch
 }

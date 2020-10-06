@@ -38,7 +38,7 @@ class SpaceXLaunchesViewModel (
 
     private fun bindInitAction(action: Action.Init) : Flow<Change> = flowOnIO {
         when(action.mode) {
-            Mode.Upcoming -> getPastLaunchesInteractor.asResult().invoke()
+            Mode.Upcoming -> getUpcomingLaunchesInteractor.asResult().invoke()
             Mode.Past -> getPastLaunchesInteractor.asResult().invoke()
         }.isError {
             emit(Change.LaunchesLoaded(listOf()))

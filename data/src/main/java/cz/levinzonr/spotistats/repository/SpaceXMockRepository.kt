@@ -36,4 +36,12 @@ class SpaceXMockRepository : SpaceXRepository {
         }
     }
 
+    override fun getLaunchById(id: String): SpaceXLaunch {
+        return SpaceXLaunch(
+            id = UUID.randomUUID().toString(),
+            imagesUrls = images,
+            date =Date(),
+            name = "CSR-X"
+        )
+    }
 }

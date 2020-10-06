@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.item_launch.view.*
 
 class SpaceXLaunchesAdapter : ListAdapter<SpaceXLaunch, SpaceXLaunchesAdapter.ViewHolder>(DIFF_CALLBACK) {
 
+    var onItemClicked: ((SpaceXLaunch) -> Unit) = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.item_launch))
     }
@@ -25,6 +27,7 @@ class SpaceXLaunchesAdapter : ListAdapter<SpaceXLaunch, SpaceXLaunchesAdapter.Vi
         fun bindView(spaceXLaunch: SpaceXLaunch) {
             view.launchIv.load(spaceXLaunch.imagesUrls.randomOrNull())
             view.launchNameTv.text = spaceXLaunch.name
+            view.setOnClickListener { onItemClicked.invoke(spaceXLaunch) }
         }
     }
 

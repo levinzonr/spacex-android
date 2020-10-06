@@ -14,4 +14,20 @@
         android:id="@+id/pastLaunchesFragment"
         android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.PastLaunchesFragment"
         android:label="@string/main_past_launches" />
+    <fragment
+        android:id="@+id/spaceXLaunchDetailFragment"
+        android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.detail.SpaceXLaunchDetailFragment"
+        android:label="fragment_space_x_launch_detail"
+        tools:layout="@layout/fragment_space_x_launch_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_spaceXLaunchDetailFragment"
+        app:destination="@id/spaceXLaunchDetailFragment"
+        app:enterAnim="@anim/fragment_close_enter"
+        app:exitAnim="@anim/fragment_close_exit"
+        app:popEnterAnim="@anim/fragment_fade_enter"
+        app:popExitAnim="@anim/fragment_fade_exit" />
 </navigation>
