@@ -1,0 +1,98 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    ext.versions = [
+            kotlin             : '1.4.10',
+            coroutines         : '1.3.9-native-mt-2',
+            constraint_layout  : '2.0.0',
+            dagger             : "2.24",
+            lifecycle          : "2.2.0",
+            hockey_sdk         : "5.2.0",
+            timber             : "4.7.1",
+            junit              : '4.13',
+            espresso           : '3.2.0',
+            mockito            : '3.5.13',
+            retrofit           : '2.9.0',
+            okhttp             : '4.9.0',
+            rx_android         : '2.1.1',
+            rx_java            : '2.2.20',
+            rx_kotlin          : '2.4.0',
+            ktx                : "1.0.2",
+            rx_lint            : '1.7.0',
+            material           : '1.1.0-alpha09',
+            archCore           : '2.0.1',
+            navigation         : '2.1.0',
+            koin               : '2.1.0',
+            roxie              : '1.0.0-test'
+
+    ]
+
+    ext.sdks = [
+            compileSdkVersion: 30,
+            buildToolsVersion: '30.0.0',
+            minSdkVersion    : 21,
+            targetSdkVersion : 30
+    ]
+
+    repositories {
+        mavenCentral()
+        google()
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${versions.navigation}"
+    }
+}
+
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.23.1"
+    id 'com.github.ben-manes.versions' version "0.21.0"
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+        jcenter()
+        mavenLocal()
+
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/levinzonr/roxie")
+            credentials {
+                username = 'levinzonr'
+                password = 'token'
+            }
+
+        }
+    }
+}
+
+
+subprojects {
+    apply plugin: 'com.diffplug.gradle.spotless'
+    spotless {
+        kotlin {
+            target "**/*.kt"
+            ktlint('0.33.0')
+        }
+    }
+}
+
+dependencyUpdates.resolutionStrategy {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
+}
