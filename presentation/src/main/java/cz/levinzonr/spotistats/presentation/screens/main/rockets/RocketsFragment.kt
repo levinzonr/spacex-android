@@ -3,10 +3,10 @@ package cz.levinzonr.spotistats.presentation.screens.main.rockets
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.levinzonr.spotistats.presentation.base.BaseFragment
-import cz.levinzonr.spotistats.presentation.base.BaseViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 import cz.levinzonr.spotistats.presentation.R
 import kotlinx.android.synthetic.main.fragment_rockets.*
@@ -31,5 +31,10 @@ class RocketsFragment : BaseFragment<State>() {
     private fun RecyclerView.init() {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         adapter = this@RocketsFragment.adapter
+        this@RocketsFragment.adapter.onClick = {
+            val route =
+                RocketsFragmentDirections.actionRocketsFragmentToRocketDetailsFragment(it.id)
+            findNavController().navigate(route)
+        }
     }
 }

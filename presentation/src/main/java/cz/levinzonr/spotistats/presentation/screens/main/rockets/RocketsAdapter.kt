@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.item_rocket.view.*
 
 class RocketsAdapter : ListAdapter<SpaceXRocket, RocketsAdapter.ViewHolder>(DIFF_CALLBACK) {
 
+    var onClick: ((SpaceXRocket) -> Unit) = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.item_rocket))
     }
@@ -25,6 +27,7 @@ class RocketsAdapter : ListAdapter<SpaceXRocket, RocketsAdapter.ViewHolder>(DIFF
         fun bindView(spaceXRocket: SpaceXRocket) {
             view.rocketImageIv.loadWithPlaceholder(spaceXRocket.images.firstOrNull())
             view.rocketNameTv.text = spaceXRocket.name
+            view.setOnClickListener { onClick.invoke(spaceXRocket) }
         }
     }
 
