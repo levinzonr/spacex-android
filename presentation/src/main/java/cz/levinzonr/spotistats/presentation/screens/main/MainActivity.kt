@@ -42,7 +42,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun NavigationView.init(navController: NavController) {
-
         setupWithNavController(navController)
     }
 
