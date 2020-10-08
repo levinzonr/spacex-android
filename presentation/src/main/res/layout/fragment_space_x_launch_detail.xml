@@ -30,38 +30,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="50dp" />
 
-    <TextView
-        android:id="@+id/launchDetailsNameTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.MyTheme.Headline4"
-        android:translationZ="22dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/launchDetailsCv"
-        app:layout_constraintTop_toTopOf="@+id/launchDetailsCv" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/launchDetailsCv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/launchDetailsIv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/avatars" />
-
-    </com.google.android.material.card.MaterialCardView>
+    <cz.levinzonr.spotistats.presentation.screens.main.images.ImagesView
+        android:background="@color/color_surface"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/imagesView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
     <TextView
@@ -85,5 +60,5 @@
         android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/imagesView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

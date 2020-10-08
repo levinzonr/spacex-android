@@ -34,7 +34,6 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
     private fun SpaceXLaunchDetails.bind() {
         supportActionBar?.title = launch.name
         launchDetailsDescriptionTv.text = launch.details
-        launchDetailsNameTv.text = launch.name
-        launchDetailsIv.loadWithPlaceholder(launch.imagesUrls.firstOrNull())
+        imagesView.submitImages(launch.imagesUrls)
     }
 }
