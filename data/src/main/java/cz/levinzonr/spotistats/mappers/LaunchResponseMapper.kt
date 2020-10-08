@@ -12,7 +12,10 @@ object LaunchResponseMapper : EntityMapper<LaunchResponse, SpaceXLaunch> {
             thumbnail = dto.resolveThumbnail(),
             date = Date(dto.date_unix.toLong()),
             name = dto.name,
-            details = dto.details
+            details = dto.details,
+            launchpadId = dto.launchpad,
+            crewMembersIds = dto.crew,
+            rocketId = dto.id
         )
     }
 

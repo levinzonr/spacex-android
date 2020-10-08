@@ -15,33 +15,14 @@ class SpaceXMockLaunchRepository : SpaceXLaunchRepository {
     )
 
     override suspend fun getPastLaunches(): List<SpaceXLaunch> {
-        return List(10) {
-            SpaceXLaunch(
-                id = UUID.randomUUID().toString(),
-                imagesUrls = images,
-                date =Date(),
-                name = "CSR-X"
-            )
-        }
+        return listOf()
     }
 
     override suspend fun getUpcomingLaunches(): List<SpaceXLaunch> {
-        return List(10) {
-            SpaceXLaunch(
-                id = UUID.randomUUID().toString(),
-                imagesUrls = images,
-                date =Date(),
-                name = "CSR-X"
-            )
-        }
+       return listOf()
     }
 
     override suspend fun getLaunchById(id: String): SpaceXLaunch {
-        return SpaceXLaunch(
-            id = UUID.randomUUID().toString(),
-            imagesUrls = images,
-            date =Date(),
-            name = "CSR-X"
-        )
+        throw Exception("")
     }
 }

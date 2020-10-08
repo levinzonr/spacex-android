@@ -1,10 +1,6 @@
 package cz.levinzonr.spotistats.cache
 
 import cz.levinzonr.spotistats.cache.base.CachingConfiguration
-import cz.levinzonr.spotistats.cache.base.CachingStrategy
-import cz.levinzonr.spotistats.domain.models.SpaceXRocket
-import cz.levinzonr.spotistats.entity.SpaceXLaunchCachedEntity
-import cz.levinzonr.spotistats.entity.SpaceXRocketCachedEntity
 import org.koin.dsl.module
 
 val cacheModule = module {
@@ -16,19 +12,19 @@ val cacheModule = module {
         )
     }
 
-    factory<CachingStrategy<SpaceXLaunchCachedEntity>> {
+    factory{
         SpaceXLaunchCachingStrategy(get())
     }
 
-    factory<CachingStrategy<List<SpaceXLaunchCachedEntity>>> {
+    factory {
         SpaceXLaunchListCachingStrategy(get())
     }
 
-    factory<CachingStrategy<SpaceXRocketCachedEntity>> {
+    factory {
         SpaceXRocketCachingStrategy(get())
     }
 
-    factory<CachingStrategy<List<SpaceXRocketCachedEntity>>> {
+    factory {
         SpaceXRocketListCachingStrategy(get())
     }
 }

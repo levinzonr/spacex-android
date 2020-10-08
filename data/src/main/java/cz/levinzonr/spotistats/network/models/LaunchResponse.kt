@@ -4,7 +4,7 @@ data class LaunchResponse(
     val auto_update: Boolean,
     val capsules: List<String>,
     val cores: List<Core>,
-    val crew: List<Any>,
+    val crew: List<String>,
     val date_local: String,
     val date_precision: String,
     val date_unix: Int,
