@@ -15,6 +15,7 @@ import cz.levinzonr.spotistats.presentation.extensions.supportActionBar
 import kotlinx.android.synthetic.main.fragment_space_x_launch_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.text.SimpleDateFormat
 
 class SpaceXLaunchDetailFragment : BaseFragment<State>() {
 
@@ -22,8 +23,12 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
     override val viewModel: SpaceXLaunchDetailViewModel by viewModel { parametersOf(args.id) }
     override val layoutRes: Int = R.layout.fragment_space_x_launch_detail
 
+    private val crewMembersAdapter by lazy { CrewMembersAdapter() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        crewRv.adapter = crewMembersAdapter
+
     }
 
     override fun renderState(state: State) {
@@ -35,5 +40,8 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
         supportActionBar?.title = launch.name
         launchDetailsDescriptionTv.text = launch.details
         imagesView.submitImages(launch.imagesUrls)
+        launchDetailsRegionTv.text = spaceXLaunchpad?.run { "${name}, $region" }
+        launchDetaisDateTv.text = SimpleDateFormat("dd MMM YYYY").format(launch.date)
+        crewMembersAdapter.submitList(crew)
     }
 }
