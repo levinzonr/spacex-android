@@ -1,23 +1,60 @@
 package cz.levinzonr.spotistats.repository
 
+import cz.levinzonr.spotistats.cache.SpaceXLaunchCachingStrategy
+import cz.levinzonr.spotistats.cache.SpaceXLaunchListCachingStrategy
+import cz.levinzonr.spotistats.database.LaunchDao
+import cz.levinzonr.spotistats.database.LaunchEntity
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.domain.repository.SpaceXLaunchRepository
+import cz.levinzonr.spotistats.mappers.LaunchEntityMapper
 import cz.levinzonr.spotistats.mappers.LaunchResponseMapper
 import cz.levinzonr.spotistats.mappers.mapWithMapper
 import cz.levinzonr.spotistats.network.Api
 
 class SpaceXLaunchRepositoryImpl(
-    private val api: Api
+    private val api: Api,
+    private val localDataSource: LaunchDao,
+    private val cachingStrategy: SpaceXLaunchCachingStrategy,
+    private val listCachingStrategy: SpaceXLaunchListCachingStrategy
 ) : SpaceXLaunchRepository {
     override suspend fun getPastLaunches(): List<SpaceXLaunch> {
-        return api.getPastLaunches().mapWithMapper(LaunchResponseMapper)
+        return listCachingStrategy
+            .setRemoteSource { api.getPastLaunches().mapWithMapper(LaunchResponseMapper).map { it.toEntity() }}
+            .setOnUpdateItems { localDataSource.insertAll(it) }
+            .setCachingSource { localDataSource.findAll() }
+            .apply().mapWithMapper(LaunchEntityMapper)
     }
 
     override suspend fun getUpcomingLaunches(): List<SpaceXLaunch> {
-        return api.getUpcomingLaunches().mapWithMapper(LaunchResponseMapper)
+        return listCachingStrategy
+            .setRemoteSource { api.getPastLaunches().mapWithMapper(LaunchResponseMapper).map { it.toEntity() }}
+            .setOnUpdateItems { localDataSource.insertAll(it) }
+            .setCachingSource { localDataSource.findAll() }
+            .apply().mapWithMapper(LaunchEntityMapper)
     }
 
     override suspend fun getLaunchById(id: String): SpaceXLaunch {
-        return api.getLaunchById(id).let { LaunchResponseMapper.toDomain(it) }
+        return cachingStrategy
+            .setRemoteSource { LaunchResponseMapper.toDomain(api.getLaunchById(id)).toEntity() }
+            .setOnUpdateItems {localDataSource.insert(it) }
+            .setCachingSource { localDataSource.findById(id) }
+            .apply().let { LaunchEntityMapper.toDomain(it) }
+    }
+
+    private fun SpaceXLaunch.toEntity() : LaunchEntity {
+        return LaunchEntity(
+            id = id,
+            imagesUrls = imagesUrls,
+            thumbnail = thumbnail,
+            date = date,
+            name = name,
+            crewMembersIds = crewMembersIds,
+            rocketId = rocketId,
+            youtubeId = links.youtubeId,
+            articlePageUrl = links.articlePage,
+            details = details,
+            wikiPageUrl = links.wikiPage,
+            launchpadId = launchpadId
+        )
     }
 }

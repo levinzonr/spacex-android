@@ -1,5 +1,7 @@
-package cz.levinzonr.spotistats.cache
+package cz.levinzonr.spotistats.injection.modules
 
+import cz.levinzonr.spotistats.cache.SpaceXLaunchCachingStrategy
+import cz.levinzonr.spotistats.cache.SpaceXLaunchListCachingStrategy
 import cz.levinzonr.spotistats.cache.base.CachingConfiguration
 import org.koin.dsl.module
 
@@ -8,7 +10,7 @@ val cacheModule = module {
     factory {
         CachingConfiguration(
             remoteFallback = CachingConfiguration.RemoteFallback.RETURN_CACHE,
-            cacheValidityTime = 100
+            cacheValidityTime = 60_000
         )
     }
 
@@ -20,11 +22,4 @@ val cacheModule = module {
         SpaceXLaunchListCachingStrategy(get())
     }
 
-    factory {
-        SpaceXRocketCachingStrategy(get())
-    }
-
-    factory {
-        SpaceXRocketListCachingStrategy(get())
-    }
 }

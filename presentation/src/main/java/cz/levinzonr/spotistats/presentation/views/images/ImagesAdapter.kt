@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.presentation.screens.main.images
+package cz.levinzonr.spotistats.presentation.views.images
 
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +23,6 @@ class ImagesAdapter : ListAdapter<String, ImagesAdapter.ViewHolder>(DIFF_CALLBAC
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(imageUrl: String) {
-            Timber.d(":oade: $imageUrl")
             view.imageView.load(imageUrl)
         }
     }

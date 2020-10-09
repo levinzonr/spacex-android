@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.presentation.screens.main.images
+package cz.levinzonr.spotistats.presentation.views.images
 
 import android.content.Context
 import android.util.AttributeSet
@@ -14,7 +14,7 @@ class ImagesView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : FrameLayout(context, attributeSet, defStyle) {
 
-    private lateinit var adapter: ImagesAdapter
+    private val adapter: ImagesAdapter
 
     init {
         View.inflate(context, R.layout.view_images, this)
@@ -23,7 +23,6 @@ class ImagesView @JvmOverloads constructor(
     }
 
     fun submitImages(list: List<String>) {
-        Timber.d("Submit $list")
         adapter.submitList(list)
     }
 }

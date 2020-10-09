@@ -2,21 +2,21 @@ package cz.levinzonr.spotistats.cache
 
 import cz.levinzonr.spotistats.cache.base.CachingConfiguration
 import cz.levinzonr.spotistats.cache.base.CachingStrategy
+import cz.levinzonr.spotistats.database.LaunchEntity
 import cz.levinzonr.spotistats.entity.SpaceXLaunchCachedEntity
-import cz.levinzonr.spotistats.entity.SpaceXRocketCachedEntity
 
 class SpaceXLaunchCachingStrategy(configuration: CachingConfiguration) :
-    CachingStrategy<SpaceXLaunchCachedEntity>(configuration) {
+    CachingStrategy<LaunchEntity>(configuration) {
 
-    override fun cacheIsValid(item: SpaceXLaunchCachedEntity?): Boolean {
+    override fun cacheIsValid(item: LaunchEntity?): Boolean {
         return item != null
     }
 
-    override fun cacheIsValidAndNotExpired(item: SpaceXLaunchCachedEntity?): Boolean {
+    override fun cacheIsValidAndNotExpired(item: LaunchEntity?): Boolean {
         return item != null && item.isValidNow(cacheValidityTime)
     }
 }
 
 class SpaceXLaunchListCachingStrategy(
     configuration: CachingConfiguration
-) : CachedItemListStrategy<SpaceXLaunchCachedEntity>(configuration)
+) : CachedItemListStrategy<LaunchEntity>(configuration)
