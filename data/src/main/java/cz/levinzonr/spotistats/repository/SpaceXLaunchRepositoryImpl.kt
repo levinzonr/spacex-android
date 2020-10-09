@@ -10,6 +10,7 @@ import cz.levinzonr.spotistats.mappers.LaunchEntityMapper
 import cz.levinzonr.spotistats.mappers.LaunchResponseMapper
 import cz.levinzonr.spotistats.mappers.mapWithMapper
 import cz.levinzonr.spotistats.network.Api
+import java.util.*
 
 class SpaceXLaunchRepositoryImpl(
     private val api: Api,
@@ -21,15 +22,16 @@ class SpaceXLaunchRepositoryImpl(
         return listCachingStrategy
             .setRemoteSource { api.getPastLaunches().mapWithMapper(LaunchResponseMapper).map { it.toEntity() }}
             .setOnUpdateItems { localDataSource.insertAll(it) }
-            .setCachingSource { localDataSource.findAll() }
+            .setCachingSource { loadPastLaunchesFromCache() }
             .apply().mapWithMapper(LaunchEntityMapper)
     }
 
     override suspend fun getUpcomingLaunches(): List<SpaceXLaunch> {
         return listCachingStrategy
-            .setRemoteSource { api.getPastLaunches().mapWithMapper(LaunchResponseMapper).map { it.toEntity() }}
+            .setRemoteSource { api.getUpcomingLaunches()
+                .mapWithMapper(LaunchResponseMapper).map { it.toEntity() }}
             .setOnUpdateItems { localDataSource.insertAll(it) }
-            .setCachingSource { localDataSource.findAll() }
+            .setCachingSource { loadUpcomingFromCache() }
             .apply().mapWithMapper(LaunchEntityMapper)
     }
 
@@ -39,6 +41,14 @@ class SpaceXLaunchRepositoryImpl(
             .setOnUpdateItems {localDataSource.insert(it) }
             .setCachingSource { localDataSource.findById(id) }
             .apply().let { LaunchEntityMapper.toDomain(it) }
+    }
+
+    private  fun loadUpcomingFromCache() : List<LaunchEntity> {
+        return localDataSource.findAll().filter { it.date >= Date() }
+    }
+
+    private  fun loadPastLaunchesFromCache() : List<LaunchEntity> {
+        return localDataSource.findAll().filter { it.date < Date() }
     }
 
     private fun SpaceXLaunch.toEntity() : LaunchEntity {
