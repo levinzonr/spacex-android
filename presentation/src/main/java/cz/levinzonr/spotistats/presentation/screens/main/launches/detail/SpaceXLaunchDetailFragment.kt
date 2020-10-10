@@ -47,7 +47,7 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
         imagesView.submitImages(launch.imagesUrls)
         launchDetailsRegionTv.text = spaceXLaunchpad?.run { "${name}, $region" }
         launchDetaisDateTv.text = launch.date.format()
-
+        launchDetailsRocketNameTv.text = rocket?.name
         launchDetailsCrewLabel.isGone = crew.isNullOrEmpty()
         crewMembersAdapter.submitList(crew)
     }

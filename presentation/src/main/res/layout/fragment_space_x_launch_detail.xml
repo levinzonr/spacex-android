@@ -52,7 +52,7 @@
             android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/launchDetailsRegionTv" />
+            app:layout_constraintTop_toBottomOf="@+id/launchDetailsRocketNameTv" />
 
         <TextView
             android:id="@+id/launchDetailsCrewLabel"
@@ -78,7 +78,6 @@
             tools:listitem="@layout/item_crew_member" />
 
         <TextView
-            android:textAppearance="?textAppearanceSubtitle2"
             android:id="@+id/launchDetailsRegionTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -86,6 +85,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="TextViCew"
+            android:textAppearance="?textAppearanceSubtitle2"
             app:layout_constraintEnd_toStartOf="@+id/launchDetaisDateTv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagesView" />
@@ -133,6 +133,17 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/launchDetailsRocketNameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.MyTheme.Subtitle1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/launchDetailsRegionTv"
+            app:layout_constraintTop_toBottomOf="@+id/launchDetailsRegionTv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

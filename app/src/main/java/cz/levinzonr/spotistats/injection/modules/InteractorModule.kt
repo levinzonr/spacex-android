@@ -12,4 +12,5 @@ val interactorModule = module {
     factory { GetAllRocketsInteractor(get()) }
     factory { GetRocketByIdInteractor(get()) }
     factory { GetSpaceXLaunchDetailsInteractor(get(), get(), get(), get()) }
+    factory { FilterLaunchesInteractor() }
 }

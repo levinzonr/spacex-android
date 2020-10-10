@@ -7,4 +7,6 @@
     <string name="main_about_spacex">About SpaceX</string>
     <string name="main_about_rockets">About Rockets</string>
     <string name="main_about_company">About Company</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

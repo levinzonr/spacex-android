@@ -16,7 +16,7 @@ object LaunchResponseMapper : EntityMapper<LaunchResponse, SpaceXLaunch> {
             details = dto.details,
             launchpadId = dto.launchpad,
             crewMembersIds = dto.crew,
-            rocketId = dto.id,
+            rocketId = dto.rocket,
             links = LinksResponseMapper.toDomain(dto.links)
         )
     }

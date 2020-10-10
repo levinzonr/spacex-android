@@ -11,7 +11,7 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
 }
 
 
-fun Date.format(format: String = "DD MMM YYY") : String {
+fun Date.format(format: String = "dd MMM YYY") : String {
     val dateFormat = SimpleDateFormat(format, Locale.getDefault())
     return dateFormat.format(this)
 }

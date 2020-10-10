@@ -50,4 +50,12 @@
             android:name="rocketId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/spaceXLaunchFilterFragment"
+        android:name="cz.levinzonr.spotistats.presentation.screens.main.launches.filter.SpaceXLaunchFilterFragment"
+        android:label="fragment_space_x_lanch_filter"
+        tools:layout="@layout/fragment_space_x_lanch_filter" />
+    <action
+        android:id="@+id/action_global_spaceXLaunchFilterFragment"
+        app:destination="@id/spaceXLaunchFilterFragment" />
 </navigation>

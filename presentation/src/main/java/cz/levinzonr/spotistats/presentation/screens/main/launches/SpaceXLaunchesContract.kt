@@ -4,9 +4,12 @@ import cz.levinzonr.roxie.BaseAction
 import cz.levinzonr.roxie.BaseChange
 import cz.levinzonr.roxie.BaseState
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
+import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 
 data class State(
     val launches: List<SpaceXLaunch> = listOf(),
+    val allLaunches: List<SpaceXLaunch> = listOf(),
+    val filterActive: Boolean = false,
     val isLoading: Boolean = false
 ) : BaseState
 
@@ -21,4 +24,5 @@ sealed class Change : BaseChange {
 
 sealed class Action : BaseAction {
     data class Init(val mode: Mode) : Action()
+    data class OnFilterStateChanged(val filter: SpaceXLaunchFilter) : Action()
 }

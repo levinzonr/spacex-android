@@ -1,0 +1,32 @@
+package cz.levinzonr.spotistats.presentation.screens.main.launches.filter
+
+import cz.levinzonr.roxie.BaseAction
+import cz.levinzonr.roxie.BaseChange
+import cz.levinzonr.roxie.BaseState
+import cz.levinzonr.spotistats.domain.models.DateInterval
+import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
+import cz.levinzonr.spotistats.domain.models.SpaceXRocket
+import cz.levinzonr.spotistats.presentation.util.SingleEvent
+
+data class State(
+    val selected: List<String> = listOf(),
+    val rockets: List<SpaceXRocket> = listOf(),
+    val applyFiltersEvent: SingleEvent<SpaceXLaunchFilter>? = null,
+    val interval: DateInterval? = null
+) : BaseState
+
+sealed class Change : BaseChange {
+    data class RocketsLoaded(val items: List<SpaceXRocket>) : Change()
+    data class SelectedRocketsChanged(val items: List<String>) : Change()
+    object LoadingStarted:  Change()
+    object ResetFilters: Change()
+    data class ConfirmCurrentFilter(val filter: SpaceXLaunchFilter) : Change()
+}
+
+sealed class Action : BaseAction {
+    object Init : Action()
+    data class RocketSelected(val rocket: SpaceXRocket) : Action()
+    object ApplyButtonClicked: Action()
+    object ViewDisappeared: Action()
+    object ClearFiltersButtonPressed: Action()
+}

@@ -1,9 +1,7 @@
 package cz.levinzonr.spotistats.presentation.screens.main.launches
 
-import cz.levinzonr.spotistats.domain.interactors.GetPastLaunchesInteractor
-import cz.levinzonr.spotistats.domain.interactors.GetUpcomingLaunchesInteractor
-import cz.levinzonr.spotistats.domain.interactors.asResult
-import cz.levinzonr.spotistats.domain.interactors.invoke
+import cz.levinzonr.spotistats.domain.interactors.*
+import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.presentation.base.BaseViewModel
 import cz.levinzonr.spotistats.presentation.extensions.flowOnIO
 import cz.levinzonr.spotistats.presentation.extensions.isError
@@ -15,9 +13,11 @@ class SpaceXLaunchesViewModel (
     private val mode: Mode,
     private val getPastLaunchesInteractor: GetPastLaunchesInteractor,
     private val getUpcomingLaunchesInteractor: GetUpcomingLaunchesInteractor,
+    private val filterLaunchesInteractor: FilterLaunchesInteractor
 ) : BaseViewModel<Action, Change, State>(){
     override val initialState: State = State()
 
+    private var allLaunches: List<SpaceXLaunch> = listOf()
 
     override val reducer: suspend (state: State, change: Change) -> State = { state, change ->
         when(change) {
@@ -34,6 +34,7 @@ class SpaceXLaunchesViewModel (
     override fun emitAction(action: Action): Flow<Change> {
         return when(action) {
             is Action.Init -> bindInitAction(action)
+            is Action.OnFilterStateChanged -> bindFilterStateChangedAction(action)
         }
     }
 
@@ -46,7 +47,14 @@ class SpaceXLaunchesViewModel (
             Timber.e(it)
             emit(Change.LaunchesLoaded(listOf()))
         }.isSuccess {
+            allLaunches = it
             emit(Change.LaunchesLoaded(it))
         }
+    }
+
+    private fun bindFilterStateChangedAction(action: Action.OnFilterStateChanged) : Flow<Change> = flowOnIO {
+        val input = FilterLaunchesInteractor.Input(allLaunches, action.filter)
+        val result = filterLaunchesInteractor.invoke(input)
+        emit(Change.LaunchesLoaded(result))
     }
 }
