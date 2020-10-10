@@ -11,9 +11,18 @@ import cz.levinzonr.spotistats.presentation.util.SingleEvent
 data class State(
     val selected: List<String> = listOf(),
     val rockets: List<SpaceXRocket> = listOf(),
-    val applyFiltersEvent: SingleEvent<SpaceXLaunchFilter>? = null,
+    val applyFiltersEvent: SingleEvent<NewSpaceXFilterState?>? = null,
     val interval: DateInterval? = null
-) : BaseState
+) : BaseState {
+    val isFilterActive: Boolean get() = interval != null || selected.isNotEmpty()
+
+    val currentFilter: SpaceXLaunchFilter?
+        get() {
+            return if (isFilterActive) SpaceXLaunchFilter(selected, interval) else null
+        }
+}
+
+data class NewSpaceXFilterState(val filter: SpaceXLaunchFilter?)
 
 sealed class Change : BaseChange {
     data class RocketsLoaded(val items: List<SpaceXRocket>) : Change()

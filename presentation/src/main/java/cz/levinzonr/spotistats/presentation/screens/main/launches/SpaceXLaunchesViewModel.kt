@@ -53,8 +53,14 @@ class SpaceXLaunchesViewModel (
     }
 
     private fun bindFilterStateChangedAction(action: Action.OnFilterStateChanged) : Flow<Change> = flowOnIO {
-        val input = FilterLaunchesInteractor.Input(allLaunches, action.filter)
-        val result = filterLaunchesInteractor.invoke(input)
-        emit(Change.LaunchesLoaded(result))
+        when (action.filter) {
+            null -> emit(Change.LaunchesLoaded(allLaunches))
+            else -> {
+                val input = FilterLaunchesInteractor.Input(allLaunches, action.filter)
+                val result = filterLaunchesInteractor.invoke(input)
+                emit(Change.LaunchesLoaded(result))
+            }
+        }
+
     }
 }

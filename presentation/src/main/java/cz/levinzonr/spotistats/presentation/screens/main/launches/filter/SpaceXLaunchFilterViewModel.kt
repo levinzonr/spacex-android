@@ -24,8 +24,16 @@ class SpaceXLaunchFilterViewModel(
             is Change.LoadingStarted -> state.copy()
             is Change.SelectedRocketsChanged -> state.copy(selected = change.items)
             is Change.RocketsLoaded -> state.copy(rockets = change.items)
-            is Change.ConfirmCurrentFilter -> state.copy(applyFiltersEvent = SingleEvent(change.filter))
-            is Change.ResetFilters -> state.copy(selected = listOf(), interval = null)
+            is Change.ConfirmCurrentFilter -> state.copy(
+                applyFiltersEvent = SingleEvent(
+                    NewSpaceXFilterState(change.filter)
+                )
+            )
+            is Change.ResetFilters -> state.copy(
+                selected = listOf(), interval = null, applyFiltersEvent = SingleEvent(
+                    NewSpaceXFilterState(null)
+                )
+            )
         }
     }
 
@@ -61,7 +69,7 @@ class SpaceXLaunchFilterViewModel(
         emit(Change.SelectedRocketsChanged(currentList))
     }
 
-    private fun bindApplyFilterAction(action: Action.ApplyButtonClicked) : Flow<Change> = flow {
+    private fun bindApplyFilterAction(action: Action.ApplyButtonClicked): Flow<Change> = flow {
         val currentInterval = currentState.interval
         val rocketIds = currentState.selected
         emit(Change.ConfirmCurrentFilter(SpaceXLaunchFilter(rocketIds, currentInterval)))

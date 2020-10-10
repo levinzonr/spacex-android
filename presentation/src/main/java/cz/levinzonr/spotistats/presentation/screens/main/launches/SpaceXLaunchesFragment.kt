@@ -42,16 +42,21 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         launchesRv.init()
+
         filterViewModel.observableState.observeNonNull(viewLifecycleOwner) { state ->
+            filterContainer.isVisible = state.isFilterActive
             state.applyFiltersEvent?.consume()?.let {
-                viewModel.dispatch(Action.OnFilterStateChanged(it))
+                viewModel.dispatch(Action.OnFilterStateChanged(it.filter))
             }
+        }
+
+        launchesClearFiltersBtn.setOnClickListener {
+            filterViewModel.dispatch(FilterAction.ClearFiltersButtonPressed)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        filterViewModel.dispatch(FilterAction.ClearFiltersButtonPressed)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
