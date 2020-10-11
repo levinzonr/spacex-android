@@ -9,12 +9,20 @@ class FilterLaunchesInteractor : Interactor<FilterLaunchesInteractor.Input, List
     override suspend fun invoke(input: Input): List<SpaceXLaunch> {
         return input.launches
             .filterByDateInterval(input.filter.interval)
-            .filter { input.filter.rocketsIds.contains(it.rocketId) }
+            .filterByRocketIds(input.filter.rocketsIds)
     }
 
     private fun List<SpaceXLaunch>.filterByDateInterval(dateInterval: DateInterval?) : List<SpaceXLaunch> {
         val interval = dateInterval ?: return this
         return filter { interval.isInInterval(it.date) }
+    }
+
+    private fun List<SpaceXLaunch>.filterByRocketIds(ids: List<String>) : List<SpaceXLaunch> {
+        return if (ids.isEmpty()) {
+            this
+        } else {
+            filter { ids.contains(it.rocketId) }
+        }
     }
 
 

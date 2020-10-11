@@ -55,9 +55,6 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

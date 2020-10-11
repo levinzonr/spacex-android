@@ -7,6 +7,7 @@ import cz.levinzonr.spotistats.domain.models.DateInterval
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 import cz.levinzonr.spotistats.domain.models.SpaceXRocket
 import cz.levinzonr.spotistats.presentation.util.SingleEvent
+import java.util.*
 
 data class State(
     val selected: List<String> = listOf(),
@@ -35,6 +36,7 @@ sealed class Change : BaseChange {
 sealed class Action : BaseAction {
     object Init : Action()
     data class RocketSelected(val rocket: SpaceXRocket) : Action()
+    data class DateRangeChanged(val first: Calendar?, val last: Calendar?) : Action()
     object ApplyButtonClicked: Action()
     object ViewDisappeared: Action()
     object ClearFiltersButtonPressed: Action()

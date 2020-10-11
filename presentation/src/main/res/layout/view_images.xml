@@ -25,7 +25,6 @@
     app:imagePlaceholder="@drawable/ic_picture"
     app:itemLayout="@layout/item_carousel"
     app:imageViewId="@id/img"
-        app:imageScaleType=""
     app:carouselType="BLOCK"
     app:scaleOnScroll="false"
     app:scalingFactor="0.15"

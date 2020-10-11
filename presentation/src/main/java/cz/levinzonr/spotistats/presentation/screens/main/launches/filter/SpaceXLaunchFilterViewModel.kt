@@ -3,6 +3,7 @@ package cz.levinzonr.spotistats.presentation.screens.main.launches.filter
 import cz.levinzonr.spotistats.domain.interactors.GetAllRocketsInteractor
 import cz.levinzonr.spotistats.domain.interactors.asResult
 import cz.levinzonr.spotistats.domain.interactors.invoke
+import cz.levinzonr.spotistats.domain.models.DateInterval
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 import cz.levinzonr.spotistats.presentation.base.BaseViewModel
 import cz.levinzonr.spotistats.presentation.extensions.flowOnIO
@@ -12,6 +13,7 @@ import cz.levinzonr.spotistats.presentation.util.SingleEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
+import java.util.*
 
 class SpaceXLaunchFilterViewModel(
     private val getAllRocketsInteractor: GetAllRocketsInteractor
@@ -25,6 +27,8 @@ class SpaceXLaunchFilterViewModel(
             is Change.SelectedRocketsChanged -> state.copy(selected = change.items)
             is Change.RocketsLoaded -> state.copy(rockets = change.items)
             is Change.ConfirmCurrentFilter -> state.copy(
+                selected = change.filter.rocketsIds,
+                interval = change.filter.interval,
                 applyFiltersEvent = SingleEvent(
                     NewSpaceXFilterState(change.filter)
                 )
@@ -49,6 +53,7 @@ class SpaceXLaunchFilterViewModel(
             is Action.ApplyButtonClicked -> bindApplyFilterAction(action)
             is Action.ClearFiltersButtonPressed -> flow { emit(Change.ResetFilters) }
             is Action.ViewDisappeared -> flow { emit(Change.ResetFilters) }
+            is Action.DateRangeChanged -> bindDateRangeChangedAction(action.first, action.last)
         }
     }
 
@@ -74,4 +79,17 @@ class SpaceXLaunchFilterViewModel(
         val rocketIds = currentState.selected
         emit(Change.ConfirmCurrentFilter(SpaceXLaunchFilter(rocketIds, currentInterval)))
     }
+
+    private fun bindDateRangeChangedAction(start: Calendar?, end: Calendar?): Flow<Change> = flow {
+        val dateRange = if (start != null && end != null) {
+            DateInterval(
+                startDate = start.time,
+                endDate = end.time
+            )
+        } else null
+
+        val currentFilter = currentState.currentFilter ?: SpaceXLaunchFilter()
+        emit(Change.ConfirmCurrentFilter(currentFilter.copy(interval = dateRange)))
+    }
+
 }

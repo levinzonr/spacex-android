@@ -1,46 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
     tools:context=".screens.main.launches.filter.SpaceXLaunchFilterFragment">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
-        android:text="Rockets"
-        android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_rocket" />
-
-    <com.google.android.material.button.MaterialButton
-
-        android:id="@+id/launchDetailsApplyButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Apply Filters"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:text="By rockets"
+            android:textAppearance="?textAppearanceHeadline6" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="true"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_rocket_filter" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="By launch date"
+            android:textAppearance="?textAppearanceHeadline6" />
+
+        <TextView
+            android:background="?selectableItemBackground"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:id="@+id/filterDateRangeSelectedTv"
+            android:textAppearance="?textAppearanceSubtitle1"
+            android:drawableStart="@drawable/ic_baseline_done_all_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            app:title_color="?colorOnSurface"
+            app:default_date_color="?colorOnSurface"
+            app:selected_date_color="?colorOnSurface"
+            app:week_color="?colorOnSurface"
+            android:layout_height="wrap_content"/>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/launchDetailsApplyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="16dp"
+            android:text="Apply Filters"
+            app:icon="@drawable/ic_baseline_done_all_24" />
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
