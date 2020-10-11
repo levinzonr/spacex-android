@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import cz.levinzonr.spotistats.domain.models.SpaceXRocket
 import cz.levinzonr.spotistats.presentation.R
 import cz.levinzonr.spotistats.presentation.extensions.inflate
@@ -34,9 +36,15 @@ class SpaceXRocketFilterAdapter : ListAdapter<SpaceXRocket, SpaceXRocketFilterAd
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(rocket: SpaceXRocket) {
-            val selected = selected.find { it == rocket.id }
-            view.filterLaunchTickCheckBox.isChecked = selected != null
-            view.filterLaunchTickCheckBox.text = rocket.name
+            val isSelected = selected.find { it == rocket.id } != null
+            view.filterRocketNameTv.text = rocket.name
+            if (isSelected) {
+                view.filterRocketImageIv.load(R.drawable.ic_tick)
+            } else {
+                view.filterRocketImageIv.load(rocket.images.firstOrNull()) {
+                    transformations(CircleCropTransformation())
+                }
+            }
             view.setOnClickListener { onClick.invoke(rocket) }
         }
     }
