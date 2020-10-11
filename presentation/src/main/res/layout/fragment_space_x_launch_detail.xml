@@ -78,9 +78,12 @@
             tools:listitem="@layout/item_crew_member" />
 
         <TextView
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_baseline_place_24"
             android:id="@+id/launchDetailsRegionTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawableTint="?colorOnSurface"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -91,13 +94,13 @@
             app:layout_constraintTop_toBottomOf="@+id/imagesView" />
 
         <TextView
-            android:textAppearance="?textAppearanceSubtitle2"
             android:id="@+id/launchDetaisDateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/launchDetailsRegionTv"
+            android:textAppearance="?textAppearanceSubtitle2"
+            app:layout_constraintBaseline_toBaselineOf="@+id/launchDetailsRegionTv"
             app:layout_constraintEnd_toEndOf="parent" />
 
 
@@ -134,16 +137,29 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:tint="?colorOnSurface"
+            android:id="@+id/launchDetailsRocketImageIv"
+            android:layout_width="24dp"
+            android:src="@drawable/ic_rocket"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/launchDetailsRegionTv"
+            app:layout_constraintTop_toBottomOf="@+id/launchDetailsRegionTv" />
+
         <TextView
             android:id="@+id/launchDetailsRocketNameTv"
             android:layout_width="0dp"
+            android:layout_marginStart="8dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:textAppearance="@style/TextAppearance.MyTheme.Subtitle1"
+            app:layout_constraintBottom_toBottomOf="@+id/launchDetailsRocketImageIv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/launchDetailsRegionTv"
-            app:layout_constraintTop_toBottomOf="@+id/launchDetailsRegionTv" />
+            app:layout_constraintStart_toEndOf="@+id/launchDetailsRocketImageIv"
+            app:layout_constraintTop_toTopOf="@+id/launchDetailsRocketImageIv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

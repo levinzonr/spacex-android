@@ -7,10 +7,12 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import coil.load
+import coil.transform.CircleCropTransformation
 import cz.levinzonr.spotistats.domain.extensions.format
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunchDetails
 import cz.levinzonr.spotistats.domain.models.SpaceXLinks
+import cz.levinzonr.spotistats.domain.models.SpaceXRocket
 import cz.levinzonr.spotistats.presentation.R
 import cz.levinzonr.spotistats.presentation.base.BaseFragment
 import cz.levinzonr.spotistats.presentation.extensions.loadWithPlaceholder
@@ -38,6 +40,7 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
     override fun renderState(state: State) {
         state.launch?.bind()
         state.launch?.launch?.links?.bind()
+        state.launch?.rocket.bind()
         progressBar.isVisible = state.isLoading
     }
 
@@ -47,7 +50,6 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
         imagesView.submitImages(launch.imagesUrls)
         launchDetailsRegionTv.text = spaceXLaunchpad?.run { "${name}, $region" }
         launchDetaisDateTv.text = launch.date.format()
-        launchDetailsRocketNameTv.text = rocket?.name
         launchDetailsCrewLabel.isGone = crew.isNullOrEmpty()
         crewMembersAdapter.submitList(crew)
     }
@@ -74,6 +76,13 @@ class SpaceXLaunchDetailFragment : BaseFragment<State>() {
                 openBrowser(it)
             }
         }
+
+    }
+
+    private fun SpaceXRocket?.bind() {
+        launchDetailsRocketImageIv.isVisible = this != null
+        launchDetailsRocketNameTv.isVisible = this != null
+        launchDetailsRocketNameTv.text = this?.name
 
     }
 }
