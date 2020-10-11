@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.database
+package cz.levinzonr.spotistats.database.converters
 
 import androidx.room.TypeConverter
 import java.util.*

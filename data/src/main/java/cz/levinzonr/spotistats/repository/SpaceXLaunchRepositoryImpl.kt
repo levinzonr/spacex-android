@@ -1,10 +1,8 @@
 package cz.levinzonr.spotistats.repository
 
-import cz.levinzonr.spotistats.cache.ItemCachingStrategy
-import cz.levinzonr.spotistats.cache.ListCachingStrategy
 import cz.levinzonr.spotistats.cache.base.CachingStrategy
-import cz.levinzonr.spotistats.database.LaunchDao
-import cz.levinzonr.spotistats.database.LaunchEntity
+import cz.levinzonr.spotistats.database.dao.LaunchDao
+import cz.levinzonr.spotistats.database.entity.LaunchEntity
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.domain.repository.SpaceXLaunchRepository
 import cz.levinzonr.spotistats.mappers.LaunchEntityMapper

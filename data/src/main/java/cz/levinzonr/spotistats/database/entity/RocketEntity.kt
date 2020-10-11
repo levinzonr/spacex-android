@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.database
+package cz.levinzonr.spotistats.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

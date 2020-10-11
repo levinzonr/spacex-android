@@ -1,6 +1,6 @@
 package cz.levinzonr.spotistats.mappers
 
-import cz.levinzonr.spotistats.database.LaunchEntity
+import cz.levinzonr.spotistats.database.entity.LaunchEntity
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.domain.models.SpaceXLinks
 

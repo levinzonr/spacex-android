@@ -3,8 +3,8 @@ package cz.levinzonr.spotistats.injection.modules
 import cz.levinzonr.spotistats.cache.ItemCachingStrategy
 import cz.levinzonr.spotistats.cache.ListCachingStrategy
 import cz.levinzonr.spotistats.cache.base.CachingStrategy
-import cz.levinzonr.spotistats.database.LaunchEntity
-import cz.levinzonr.spotistats.database.RocketEntity
+import cz.levinzonr.spotistats.database.entity.LaunchEntity
+import cz.levinzonr.spotistats.database.entity.RocketEntity
 import cz.levinzonr.spotistats.domain.repository.*
 import cz.levinzonr.spotistats.repository.SpaceXCrewRepositoryImpl
 import cz.levinzonr.spotistats.repository.SpaceXLaunchRepositoryImpl
@@ -14,9 +14,6 @@ import cz.levinzonr.spotistats.storage.PrefManagerImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-
-private const val DS_LAUNCH = "launch"
-private const val DS_ROCKET = "rockets"
 
 
 private const val STRATEGY_ROCKETS = "rockets_strategy"

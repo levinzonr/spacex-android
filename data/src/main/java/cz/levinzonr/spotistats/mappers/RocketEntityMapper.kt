@@ -1,6 +1,6 @@
 package cz.levinzonr.spotistats.mappers
 
-import cz.levinzonr.spotistats.database.RocketEntity
+import cz.levinzonr.spotistats.database.entity.RocketEntity
 import cz.levinzonr.spotistats.domain.models.SpaceXRocket
 
 object RocketEntityMapper : EntityMapper<RocketEntity, SpaceXRocket> {

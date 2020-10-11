@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.database
+package cz.levinzonr.spotistats.database.dao
 
 import androidx.room.Delete
 import androidx.room.Insert
