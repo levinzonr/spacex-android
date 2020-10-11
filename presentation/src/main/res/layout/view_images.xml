@@ -5,12 +5,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/imagesRv"
-        android:orientation="horizontal"
-        tools:listitem="@layout/item_image"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+    android:id="@+id/carousel"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    app:showTopShadow="true"
+    app:topShadowAlpha="0.6"
+    app:topShadowHeight="32dp"
+    app:showBottomShadow="true"
+    app:bottomShadowAlpha="0.6"
+    app:bottomShadowHeight="64dp"
+    app:showCaption="true"
+    app:captionMargin="0dp"
+    app:captionTextSize="14sp"
+    app:showIndicator="true"
+    app:indicatorMargin="0dp"
+    app:showNavigationButtons="true"
+    app:carouselBackground="#333333"
+    app:imagePlaceholder="@drawable/ic_picture"
+    app:itemLayout="@layout/item_carousel"
+    app:imageViewId="@id/img"
+        app:imageScaleType=""
+    app:carouselType="BLOCK"
+    app:scaleOnScroll="false"
+    app:scalingFactor="0.15"
+    app:autoWidthFixing="true"
+    app:autoPlay="false"
+    app:autoPlayDelay="3000" />
 
 </FrameLayout>

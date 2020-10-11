@@ -15,12 +15,14 @@ class SpaceXRocketRepositoryImpl(
     private val localDataSource: RocketsDao,
     private val cachingStrategy: CachingStrategy<RocketEntity>,
     private val listCachingStrategy: CachingStrategy<List<RocketEntity>>
-    ) : SpaceXRocketsRepository {
+) : SpaceXRocketsRepository {
 
     override suspend fun getAllRockets(): List<SpaceXRocket> {
         return listCachingStrategy
-            .setRemoteSource { api.getRockets().mapWithMapper(RocketResponseMapper).map { RocketEntity(it) } }
-            .setCachingSource { localDataSource.findAll()  }
+            .setRemoteSource {
+                api.getRockets().mapWithMapper(RocketResponseMapper).map { RocketEntity(it) }
+            }
+            .setCachingSource { localDataSource.findAll() }
             .setOnUpdateItems { localDataSource.insertAll(it) }
             .apply()
             .mapWithMapper(RocketEntityMapper)
@@ -28,7 +30,9 @@ class SpaceXRocketRepositoryImpl(
 
     override suspend fun getRocketById(id: String): SpaceXRocket {
         return cachingStrategy
-            .setRemoteSource { RocketResponseMapper.toDomain(api.getRocketById(id)).let { RocketEntity(it) } }
+            .setRemoteSource {
+                RocketResponseMapper.toDomain(api.getRocketById(id)).let { RocketEntity(it) }
+            }
             .setCachingSource { localDataSource.findById(id) }
             .setOnUpdateItems { localDataSource.insert(it) }
             .apply()
