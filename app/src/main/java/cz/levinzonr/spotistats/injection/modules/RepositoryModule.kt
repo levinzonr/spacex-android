@@ -1,5 +1,10 @@
 package cz.levinzonr.spotistats.injection.modules
 
+import cz.levinzonr.spotistats.cache.ItemCachingStrategy
+import cz.levinzonr.spotistats.cache.ListCachingStrategy
+import cz.levinzonr.spotistats.cache.base.CachingStrategy
+import cz.levinzonr.spotistats.database.LaunchEntity
+import cz.levinzonr.spotistats.database.RocketEntity
 import cz.levinzonr.spotistats.domain.repository.*
 import cz.levinzonr.spotistats.repository.SpaceXCrewRepositoryImpl
 import cz.levinzonr.spotistats.repository.SpaceXLaunchRepositoryImpl
@@ -13,13 +18,53 @@ import org.koin.dsl.module
 private const val DS_LAUNCH = "launch"
 private const val DS_ROCKET = "rockets"
 
+
+private const val STRATEGY_ROCKETS = "rockets_strategy"
+private const val STRATEGY_ROCKETS_ITEM = "rockets_strategy_item"
+private const val STRATEGY_LAUNCHES = "launches_strategy_list"
+private const val STRATEGY_LAUNCHES_ITEM = "launches_strategy_item"
+
 val repositoryModule = module {
 
     single<PrefManager> { PrefManagerImpl(androidContext()) }
-    single<SpaceXLaunchRepository> { SpaceXLaunchRepositoryImpl(get(), get(), get(), get()) }
-    single<SpaceXRocketsRepository> { SpaceXRocketRepositoryImpl(get()) }
+
+    single<SpaceXLaunchRepository> {
+        SpaceXLaunchRepositoryImpl(
+            get(), get(), get(
+                named(
+                    STRATEGY_LAUNCHES_ITEM
+                )
+            ), get(named(STRATEGY_LAUNCHES))
+        )
+    }
+
+
+    single<SpaceXRocketsRepository> {
+        SpaceXRocketRepositoryImpl(
+            get(), get(), get(named(STRATEGY_ROCKETS_ITEM)), get(
+                named(STRATEGY_ROCKETS)
+            )
+        )
+    }
     single<SpaceXLaunchpadRepository> { SpaceXLaunchpadRepositoryImpl(get()) }
     single<SpaceXCrewRepository> { SpaceXCrewRepositoryImpl(get()) }
+
+
+    factory<CachingStrategy<List<LaunchEntity>>>(named(STRATEGY_LAUNCHES)) {
+        ListCachingStrategy(get())
+    }
+
+    factory<CachingStrategy<LaunchEntity>>(named(STRATEGY_LAUNCHES_ITEM)) {
+        ItemCachingStrategy(get())
+    }
+
+    factory<CachingStrategy<List<RocketEntity>>>(named(STRATEGY_ROCKETS)) {
+        ListCachingStrategy(get())
+    }
+
+    factory<CachingStrategy<RocketEntity>>(named(STRATEGY_ROCKETS_ITEM)) {
+        ItemCachingStrategy(get())
+    }
 
 
 }

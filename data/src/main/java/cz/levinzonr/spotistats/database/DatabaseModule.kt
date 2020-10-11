@@ -11,4 +11,6 @@ val databaseModule = module {
     }
     single { get<AppDatabase>().launchDao() }
 
+    single { get<AppDatabase>().rocketsDao()     }
+
 }

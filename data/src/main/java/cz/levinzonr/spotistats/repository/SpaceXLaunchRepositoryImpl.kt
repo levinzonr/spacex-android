@@ -1,7 +1,8 @@
 package cz.levinzonr.spotistats.repository
 
-import cz.levinzonr.spotistats.cache.SpaceXLaunchCachingStrategy
-import cz.levinzonr.spotistats.cache.SpaceXLaunchListCachingStrategy
+import cz.levinzonr.spotistats.cache.ItemCachingStrategy
+import cz.levinzonr.spotistats.cache.ListCachingStrategy
+import cz.levinzonr.spotistats.cache.base.CachingStrategy
 import cz.levinzonr.spotistats.database.LaunchDao
 import cz.levinzonr.spotistats.database.LaunchEntity
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
@@ -15,8 +16,8 @@ import java.util.*
 class SpaceXLaunchRepositoryImpl(
     private val api: Api,
     private val localDataSource: LaunchDao,
-    private val cachingStrategy: SpaceXLaunchCachingStrategy,
-    private val listCachingStrategy: SpaceXLaunchListCachingStrategy
+    private val cachingStrategy: CachingStrategy<LaunchEntity>,
+    private val listCachingStrategy: CachingStrategy<List<LaunchEntity>>
 ) : SpaceXLaunchRepository {
     override suspend fun getPastLaunches(): List<SpaceXLaunch> {
         return listCachingStrategy

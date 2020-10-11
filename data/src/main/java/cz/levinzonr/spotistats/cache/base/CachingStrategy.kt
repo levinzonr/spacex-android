@@ -2,6 +2,8 @@ package cz.levinzonr.spotistats.cache.base
 
 import java.lang.Exception
 
+interface C
+
 abstract class CachingStrategy<T>(configuration: CachingConfiguration) {
 
     protected val cacheValidityTime = configuration.cacheValidityTime
@@ -45,26 +47,12 @@ abstract class CachingStrategy<T>(configuration: CachingConfiguration) {
         } catch (e: Exception) {
             when (remoteFallback) {
                 CachingConfiguration.RemoteFallback.RETURN_CACHE -> {
-                    val cached = cachedSource.invoke()
-                    if (cached != null && cacheIsValid(cached)) {
-                        cached
-                    } else {
-                        throw e
-                    }
+                     cachedSource.invoke() ?: throw e
                 }
                 CachingConfiguration.RemoteFallback.THROW_ERROR -> {
                     throw e
                 }
             }
-        }
-    }
-
-    private suspend fun getCachedDataIfValid(): T? {
-        val cached = cachedSource.invoke()
-        return if (cacheIsValid(cached)) {
-            cached
-        } else {
-            null
         }
     }
 }
