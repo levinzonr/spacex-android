@@ -21,6 +21,7 @@ import cz.levinzonr.spotistats.presentation.screens.main.launches.filter.Action 
 abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
 
     abstract val mode: Mode
+    abstract val isFilterAvailable: Boolean
 
     override val viewModel: SpaceXLaunchesViewModel by viewModel { parametersOf(mode) }
 
@@ -35,7 +36,7 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(isFilterAvailable)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -55,6 +56,11 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         }
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        filterViewModel.dispatch(FilterAction.ViewDisappeared)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -91,8 +97,10 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
 
 class UpcomingLaunchesFragment : SpaceXLaunchesFragment() {
     override val mode: Mode = Mode.Upcoming
+    override val isFilterAvailable: Boolean = false
 }
 
 class PastLaunchesFragment: SpaceXLaunchesFragment() {
     override val mode: Mode = Mode.Past
+    override val isFilterAvailable: Boolean = true
 }
