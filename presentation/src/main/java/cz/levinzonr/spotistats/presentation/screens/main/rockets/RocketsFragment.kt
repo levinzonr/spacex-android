@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.levinzonr.spotistats.presentation.base.BaseFragment
@@ -26,10 +27,11 @@ class RocketsFragment : BaseFragment<State>() {
     override fun renderState(state: State) {
         adapter.submitList(state.rockets)
         progressBar.isVisible = state.isLoading
+        emptyView.isVisible = state.rockets.isEmpty() && !state.isLoading
     }
 
     private fun RecyclerView.init() {
-        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         adapter = this@RocketsFragment.adapter
         this@RocketsFragment.adapter.onClick = {
             val route =

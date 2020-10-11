@@ -19,16 +19,37 @@
             android:orientation="vertical">
 
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+            <LinearLayout
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
-                android:text="By rockets"
-                android:textAppearance="?textAppearanceHeadline6" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginStart="16dp"
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="By rockets"
+                    android:textAppearance="?textAppearanceHeadline6" />
+
+
+                <ImageButton
+                    android:id="@+id/filterRocketsClearBtn"
+                    android:padding="8dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_clear_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -40,25 +61,34 @@
                 tools:listitem="@layout/item_rocket_filter" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:text="By launch date"
-                android:textAppearance="?textAppearanceHeadline6" />
+            <LinearLayout
 
-            <TextView
-                android:id="@+id/filterDateRangeSelectedTv"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:background="?selectableItemBackground"
-                android:drawableStart="@drawable/ic_baseline_done_all_24"
-                android:textAppearance="?textAppearanceSubtitle1"
-                android:visibility="gone" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginStart="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="By launch date"
+                    android:textAppearance="?textAppearanceHeadline6" />
+
+                <ImageButton
+                    android:id="@+id/filterDateClearBtn"
+                    android:padding="8dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_clear_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+            </LinearLayout>
 
             <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
                 android:layout_marginTop="16dp"
@@ -77,8 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_margin="16dp"
-                android:text="Apply Filters"
-                app:icon="@drawable/ic_baseline_done_all_24" />
+                android:text="Apply Filters" />
 
 
         </LinearLayout>

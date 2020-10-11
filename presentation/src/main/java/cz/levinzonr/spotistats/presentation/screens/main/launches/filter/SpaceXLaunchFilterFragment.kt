@@ -2,6 +2,7 @@ package cz.levinzonr.spotistats.presentation.screens.main.launches.filter
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -35,9 +36,10 @@ class SpaceXLaunchFilterFragment : BaseFragment<State>() {
     override fun renderState(state: State) {
         adapter.submitSelected(state.selected)
         adapter.submitList(state.rockets)
-        filterDateRangeSelectedTv.isVisible = state.interval != null
         val interval = state.interval
-        filterDateRangeSelectedTv.text = "From ${interval?.startDate?.format()} to ${interval?.endDate?.format()}"
+        filterDateClearBtn.isInvisible = interval == null
+        filterRocketsClearBtn.isInvisible = state.selected.isEmpty()
+        if (interval == null) calendarView.resetAllSelectedViews()
     }
 
     private fun setupCalenderView() {
@@ -57,7 +59,15 @@ class SpaceXLaunchFilterFragment : BaseFragment<State>() {
             viewModel.dispatch(Action.ApplyButtonClicked)
             findNavController().navigateUp()
         }
+
+        filterRocketsClearBtn.setOnClickListener {
+            viewModel.dispatch(Action.ClearRocketsFilterAction)
+        }
+        filterDateClearBtn.setOnClickListener {
+            viewModel.dispatch(Action.ClearDateFilterAction)
+        }
     }
+
 
     private fun RecyclerView.init() {
         adapter = this@SpaceXLaunchFilterFragment.adapter

@@ -54,6 +54,8 @@ class SpaceXLaunchFilterViewModel(
             is Action.ClearFiltersButtonPressed -> flow { emit(Change.ResetFilters) }
             is Action.ViewDisappeared -> flow { emit(Change.ResetFilters) }
             is Action.DateRangeChanged -> bindDateRangeChangedAction(action.first, action.last)
+            is Action.ClearRocketsFilterAction -> bindClearRocketsAction()
+            is Action.ClearDateFilterAction -> bindClearDateFilterAction()
         }
     }
 
@@ -90,6 +92,16 @@ class SpaceXLaunchFilterViewModel(
 
         val currentFilter = currentState.currentFilter ?: SpaceXLaunchFilter()
         emit(Change.ConfirmCurrentFilter(currentFilter.copy(interval = dateRange)))
+    }
+
+    private fun bindClearDateFilterAction() : Flow<Change> = flow {
+        val currentFilter = currentState.currentFilter ?: SpaceXLaunchFilter()
+        emit(Change.ConfirmCurrentFilter(currentFilter.copy(interval = null)))
+    }
+
+    private fun bindClearRocketsAction() : Flow<Change> = flow {
+        val currentFilter = currentState.currentFilter ?: SpaceXLaunchFilter()
+        emit(Change.ConfirmCurrentFilter(currentFilter.copy(rocketsIds = listOf())))
     }
 
 }

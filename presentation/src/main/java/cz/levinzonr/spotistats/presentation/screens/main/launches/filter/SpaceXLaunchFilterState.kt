@@ -39,5 +39,7 @@ sealed class Action : BaseAction {
     data class DateRangeChanged(val first: Calendar?, val last: Calendar?) : Action()
     object ApplyButtonClicked: Action()
     object ViewDisappeared: Action()
+    object ClearDateFilterAction: Action()
+    object ClearRocketsFilterAction: Action()
     object ClearFiltersButtonPressed: Action()
 }

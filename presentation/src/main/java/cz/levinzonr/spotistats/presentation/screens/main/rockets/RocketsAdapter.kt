@@ -5,11 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.transform.RoundedCornersTransformation
+import com.google.android.material.internal.ViewUtils.dpToPx
 import cz.levinzonr.spotistats.domain.models.SpaceXRocket
 import cz.levinzonr.spotistats.presentation.R
+import cz.levinzonr.spotistats.presentation.extensions.dpToPx
 import cz.levinzonr.spotistats.presentation.extensions.inflate
 import cz.levinzonr.spotistats.presentation.extensions.loadWithPlaceholder
 import kotlinx.android.synthetic.main.item_rocket.view.*
+import org.imaginativeworld.whynotimagecarousel.dpToPx
 
 class RocketsAdapter : ListAdapter<SpaceXRocket, RocketsAdapter.ViewHolder>(DIFF_CALLBACK) {
 
@@ -25,7 +29,7 @@ class RocketsAdapter : ListAdapter<SpaceXRocket, RocketsAdapter.ViewHolder>(DIFF
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(spaceXRocket: SpaceXRocket) {
-            view.rocketImageIv.loadWithPlaceholder(spaceXRocket.images.firstOrNull())
+            view.rocketImageIv.loadWithPlaceholder(spaceXRocket.images.firstOrNull(), transformation = RoundedCornersTransformation(view.dpToPx(8).toFloat()))
             view.rocketNameTv.text = spaceXRocket.name
             view.setOnClickListener { onClick.invoke(spaceXRocket) }
         }

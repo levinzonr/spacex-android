@@ -6,6 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <include
+        android:id="@+id/emptyView"
+        android:visibility="gone"
+        layout="@layout/include_empty_state"/>
+
     <FrameLayout
         android:background="?colorSurface"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,6 +21,7 @@
         <com.google.android.material.button.MaterialButton
             style="?borderlessButtonStyle"
             android:text="@string/clear_filters"
+            app:icon="@drawable/ic_baseline_clear_24"
             android:layout_gravity="end"
             android:id="@+id/launchesClearFiltersBtn"
             android:layout_margin="8dp"

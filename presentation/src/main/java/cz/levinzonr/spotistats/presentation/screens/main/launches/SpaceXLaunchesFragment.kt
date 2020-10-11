@@ -75,6 +75,7 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         launchesRv.isGone = state.isLoading
         adapter.submitList(state.launches)
         progressBar.isVisible = state.isLoading
+        emptyView.isVisible = state.launches.isEmpty() && !state.isLoading
     }
 
 

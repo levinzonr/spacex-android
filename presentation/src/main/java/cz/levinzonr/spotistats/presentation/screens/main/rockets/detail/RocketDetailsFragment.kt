@@ -21,6 +21,7 @@ class RocketDetailsFragment : BaseFragment<State>() {
     }
 
     private fun SpaceXRocket.bind() {
-        rocketDetailsImageIv.loadWithPlaceholder(images.randomOrNull())
+        rocketDetailsImageIv.submitImages(images)
+        rocketDetailsDescriptionTv.text = description
     }
 }

@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:visibility="gone"
+        android:id="@+id/emptyView"
+        layout="@layout/include_empty_state"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
