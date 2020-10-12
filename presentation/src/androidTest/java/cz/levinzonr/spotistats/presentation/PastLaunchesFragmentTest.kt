@@ -162,10 +162,8 @@ class PastLaunchesFragmentTest {
     @Test
     fun testLifecyleEvents() {
         scenario.moveToState(Lifecycle.State.STARTED)
-        verify(exactly = 1) { viewModel.dispatch(Action.Init(Mode.Past)) }
+        verify(exactly = 1) { viewModel.dispatch(Action.Init(Mode.Past, null)) }
 
-        scenario.moveToState(Lifecycle.State.DESTROYED)
-        verify(exactly = 1) { filterViewModel.dispatch(FilterAction.ViewDisappeared) }
     }
 
 

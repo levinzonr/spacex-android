@@ -8,8 +8,7 @@ import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 
 data class State(
     val launches: List<SpaceXLaunch> = listOf(),
-    val isLoading: Boolean = false,
-    val currentFilter: SpaceXLaunchFilter? = null
+    val isLoading: Boolean = false
 ) : BaseState
 
 enum class Mode {

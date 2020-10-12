@@ -27,8 +27,7 @@ class SpaceXLaunchesViewModel(
         when (change) {
             is Change.LaunchesLoaded -> state.copy(
                 launches = change.items,
-                isLoading = false,
-                state.currentFilter
+                isLoading = false
             )
             is Change.LaunchesLoading -> state.copy(isLoading = true)
         }

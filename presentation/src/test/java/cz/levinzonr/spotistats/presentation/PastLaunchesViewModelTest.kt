@@ -42,7 +42,6 @@ class PastLaunchesViewModelTest {
         coEvery { getUpcomingLaunchesInteractor.invoke() } throws Exception()
         coEvery { getPastLaunchesInteractor.invoke() } returns allLaunches
         viewModel =  SpaceXLaunchesViewModel(
-            Mode.Past,
             getPastLaunchesInteractor,
             getUpcomingLaunchesInteractor,
             filterLaunchesInteractor,
@@ -59,7 +58,7 @@ class PastLaunchesViewModelTest {
         coEvery { getPastLaunchesInteractor.invoke() } returns allLaunches
 
         // WHEN
-        viewModel.dispatch(Action.Init(Mode.Past))
+        viewModel.dispatch(Action.Init(Mode.Past, null))
 
         // THEN
         verifyOrder {
@@ -76,7 +75,7 @@ class PastLaunchesViewModelTest {
         coEvery { getPastLaunchesInteractor.invoke() } throws Exception()
 
         // WHEN
-        viewModel.dispatch(Action.Init(Mode.Past))
+        viewModel.dispatch(Action.Init(Mode.Past, null))
 
 
         // THEN
@@ -95,7 +94,7 @@ class PastLaunchesViewModelTest {
         coEvery { filterLaunchesInteractor.invoke(any()) } returns filtered
 
         // WHEN
-        viewModel.dispatch(Action.Init(Mode.Past))
+        viewModel.dispatch(Action.Init(Mode.Past, null))
         viewModel.dispatch(Action.OnFilterStateChanged(SpaceXLaunchFilter(rocketsIds = listOf("1"))))
 
 
@@ -118,7 +117,7 @@ class PastLaunchesViewModelTest {
         coEvery { filterLaunchesInteractor.invoke(FilterLaunchesInteractor.Input(allLaunches, null)) } returns allLaunches
 
         // WHEN
-        viewModel.dispatch(Action.Init(Mode.Past))
+        viewModel.dispatch(Action.Init(Mode.Past, null))
         viewModel.dispatch(Action.OnFilterStateChanged(nonNullFilter.filter))
         viewModel.dispatch(Action.OnFilterStateChanged(null))
 
@@ -129,6 +128,24 @@ class PastLaunchesViewModelTest {
             observer.onChanged(State(isLoading = false, launches = allLaunches))
             observer.onChanged(State(launches = filtered))
             observer.onChanged(State(launches = allLaunches))
+        }
+    }
+
+    @Test
+    fun `Given Initial Filter is not Null, When View is Initlized, Then List Contains Filtered content`() {
+
+        // GIVEN
+        val filterd = allLaunches.subList(0, 10)
+        val nonNullFilter = SpaceXLaunchFilter(listOf("1"))
+        coEvery { getPastLaunchesInteractor.invoke() } returns allLaunches
+        coEvery { filterLaunchesInteractor.invoke(any()) } returns filterd
+
+        // WHEN
+        viewModel.dispatch(Action.Init(Mode.Past, nonNullFilter))
+
+        verifyOrder {
+            observer.onChanged(State(isLoading = true))
+            observer.onChanged(State(isLoading = false, launches = filterd))
         }
 
     }
