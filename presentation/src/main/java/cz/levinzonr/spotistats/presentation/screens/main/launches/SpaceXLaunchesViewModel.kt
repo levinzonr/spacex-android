@@ -2,6 +2,7 @@ package cz.levinzonr.spotistats.presentation.screens.main.launches
 
 import cz.levinzonr.spotistats.domain.interactors.*
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
+import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 import cz.levinzonr.spotistats.presentation.base.BaseViewModel
 import cz.levinzonr.spotistats.presentation.extensions.flowOnIO
 import cz.levinzonr.spotistats.presentation.extensions.isError
@@ -9,10 +10,10 @@ import cz.levinzonr.spotistats.presentation.extensions.isSuccess
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import timber.log.Timber
 
 class SpaceXLaunchesViewModel(
-    private val mode: Mode,
     private val getPastLaunchesInteractor: GetPastLaunchesInteractor,
     private val getUpcomingLaunchesInteractor: GetUpcomingLaunchesInteractor,
     private val filterLaunchesInteractor: FilterLaunchesInteractor,
@@ -24,7 +25,11 @@ class SpaceXLaunchesViewModel(
 
     override val reducer: suspend (state: State, change: Change) -> State = { state, change ->
         when (change) {
-            is Change.LaunchesLoaded -> state.copy(launches = change.items, isLoading = false)
+            is Change.LaunchesLoaded -> state.copy(
+                launches = change.items,
+                isLoading = false,
+                state.currentFilter
+            )
             is Change.LaunchesLoading -> state.copy(isLoading = true)
         }
     }
@@ -35,12 +40,12 @@ class SpaceXLaunchesViewModel(
 
     override fun emitAction(action: Action): Flow<Change> {
         return when (action) {
-            is Action.Init -> bindInitAction(action)
-            is Action.OnFilterStateChanged -> bindFilterStateChangedAction(action)
+            is Action.Init -> flowOnIO { bindInitAction(action) }
+            is Action.OnFilterStateChanged -> flowOnIO { bindFilterStateChangedAction(action.filter) }
         }
     }
 
-    private fun bindInitAction(action: Action.Init): Flow<Change> = flowOnIO {
+    private suspend fun FlowCollector<Change>.bindInitAction(action: Action.Init) {
         emit(Change.LaunchesLoading)
         when (action.mode) {
             Mode.Upcoming -> getUpcomingLaunchesInteractor.asResult().invoke()
@@ -50,15 +55,18 @@ class SpaceXLaunchesViewModel(
             emit(Change.LaunchesLoaded(listOf()))
         }.isSuccess {
             allLaunches = it
-            emit(Change.LaunchesLoaded(it))
+            if (action.filter != null)
+                bindFilterStateChangedAction(action.filter)
+            else
+                emit(Change.LaunchesLoaded(it))
+
         }
     }
 
-    private fun bindFilterStateChangedAction(action: Action.OnFilterStateChanged): Flow<Change> =
-        flowOnIO {
-            val input = FilterLaunchesInteractor.Input(allLaunches, action.filter)
-            val result = filterLaunchesInteractor.invoke(input)
-            emit(Change.LaunchesLoaded(result))
-        }
+    private suspend fun FlowCollector<Change>.bindFilterStateChangedAction(filter: SpaceXLaunchFilter?) {
+        val input = FilterLaunchesInteractor.Input(allLaunches, filter)
+        val result = filterLaunchesInteractor.invoke(input)
+        emit(Change.LaunchesLoaded(result, filter))
+    }
 
 }

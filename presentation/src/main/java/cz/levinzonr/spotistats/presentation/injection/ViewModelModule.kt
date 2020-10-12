@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val viewModels = module {
     viewModel { SplashViewModel() }
-    viewModel { (mode: Mode) -> SpaceXLaunchesViewModel(mode, get(), get(), get()) }
+    viewModel { SpaceXLaunchesViewModel(get(), get(), get()) }
     viewModel { (id: String) -> SpaceXLaunchDetailViewModel(id, get()) }
     viewModel { (id: String) -> RocketDetailsViewModel(id, get()) }
     viewModel { RocketsViewModel(get()) }

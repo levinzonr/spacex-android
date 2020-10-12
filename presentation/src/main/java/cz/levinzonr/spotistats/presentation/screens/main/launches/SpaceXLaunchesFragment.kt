@@ -15,6 +15,7 @@ import cz.levinzonr.spotistats.presentation.R
 import cz.levinzonr.spotistats.presentation.extensions.observeNonNull
 import cz.levinzonr.spotistats.presentation.screens.main.launches.detail.SpaceXLaunchDetailFragmentDirections
 import cz.levinzonr.spotistats.presentation.screens.main.launches.filter.SpaceXLaunchFilterViewModel
+import org.koin.android.viewmodel.ext.android.getSharedViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import cz.levinzonr.spotistats.presentation.screens.main.launches.filter.Action as FilterAction
 
@@ -25,7 +26,9 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
 
     override val viewModel: SpaceXLaunchesViewModel by viewModel { parametersOf(mode) }
 
-    private val  filterViewModel: SpaceXLaunchFilterViewModel by sharedViewModel()
+    private val filterViewModel: SpaceXLaunchFilterViewModel? by lazy {
+        if (isFilterAvailable) getSharedViewModel() else null
+    }
 
     override val layoutRes: Int = R.layout.fragment_launches
 
@@ -33,7 +36,7 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.dispatch(Action.Init(mode))
+        viewModel.dispatch(Action.Init(mode, filterViewModel?.observableState?.value?.currentFilter))
     }
 
     override fun onCreateView(
@@ -49,7 +52,7 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         super.onViewCreated(view, savedInstanceState)
         launchesRv.init()
 
-        filterViewModel.observableState.observeNonNull(viewLifecycleOwner) { state ->
+        filterViewModel?.observableState?.observeNonNull(viewLifecycleOwner) { state ->
             filterContainer.isVisible = state.isFilterActive
             state.applyFiltersEvent?.consume()?.let {
                 viewModel.dispatch(Action.OnFilterStateChanged(it.filter))
@@ -57,14 +60,8 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         }
 
         launchesClearFiltersBtn.setOnClickListener {
-            filterViewModel.dispatch(FilterAction.ClearFiltersButtonPressed)
+            filterViewModel?.dispatch(FilterAction.ClearFiltersButtonPressed)
         }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        filterViewModel.dispatch(FilterAction.ViewDisappeared)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -73,7 +70,7 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.filterBtn -> {
                 findNavController().navigate(R.id.action_global_spaceXLaunchFilterFragment)
                 true
@@ -94,7 +91,8 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         adapter = this@SpaceXLaunchesFragment.adapter
         this@SpaceXLaunchesFragment.adapter.onItemClicked = {
-            val route = SpaceXLaunchDetailFragmentDirections.actionGlobalSpaceXLaunchDetailFragment(it.id)
+            val route =
+                SpaceXLaunchDetailFragmentDirections.actionGlobalSpaceXLaunchDetailFragment(it.id)
             findNavController().navigate(route)
         }
     }
@@ -105,7 +103,7 @@ class UpcomingLaunchesFragment : SpaceXLaunchesFragment() {
     override val isFilterAvailable: Boolean = false
 }
 
-class PastLaunchesFragment: SpaceXLaunchesFragment() {
+class PastLaunchesFragment : SpaceXLaunchesFragment() {
     override val mode: Mode = Mode.Past
     override val isFilterAvailable: Boolean = true
 }

@@ -20,85 +20,97 @@
 
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="By rockets"
                     android:textAppearance="?textAppearanceHeadline6" />
 
 
                 <ImageButton
                     android:id="@+id/filterRocketsClearBtn"
-                    android:padding="8dp"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_clear_24"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_clear_24" />
 
 
             </LinearLayout>
 
 
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:nestedScrollingEnabled="true"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_rocket_filter" />
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                app:cardCornerRadius="16dp">
 
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="true"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_rocket_filter" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="By launch date"
                     android:textAppearance="?textAppearanceHeadline6" />
 
                 <ImageButton
                     android:id="@+id/filterDateClearBtn"
-                    android:padding="8dp"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_clear_24"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_clear_24" />
 
 
             </LinearLayout>
 
-            <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
-                android:layout_marginTop="16dp"
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:default_date_color="?colorOnSurface"
-                app:selected_date_color="?colorOnSurface"
-                app:title_color="?colorOnSurface"
-                app:week_color="?colorOnSurface" />
+                android:layout_margin="16dp"
+                app:cardCornerRadius="8dp">
+
+                <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:default_date_color="?colorOnSurface"
+                    app:selected_date_color="?colorOnSurface"
+                    app:title_color="?colorOnSurface"
+                    app:week_color="?colorOnSurface" />
+
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.google.android.material.button.MaterialButton
