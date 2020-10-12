@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.presentation
+package cz.levinzonr.spotistats.presentation.utils
 
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunch
 import cz.levinzonr.spotistats.domain.models.SpaceXLinks

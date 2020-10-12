@@ -19,7 +19,7 @@ abstract class BaseViewModel<A: BaseAction,C: BaseChange,S: BaseState>(
 
     private val _navigationLiveData: MutableLiveData<SingleEvent<Route>> = MutableLiveData()
 
-    val navigationLiveData: LiveData<SingleEvent<Route>>
+    open val navigationLiveData: LiveData<SingleEvent<Route>>
         get() = _navigationLiveData
 
     fun navigateTo(route: Route) {

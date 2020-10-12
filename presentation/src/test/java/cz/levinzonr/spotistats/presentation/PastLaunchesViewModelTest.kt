@@ -12,6 +12,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 import cz.levinzonr.spotistats.presentation.screens.main.launches.State
+import cz.levinzonr.spotistats.presentation.utils.MainCoroutineRule
+import cz.levinzonr.spotistats.presentation.utils.MockData
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

@@ -1,4 +1,4 @@
-package cz.levinzonr.spotistats.presentation
+package cz.levinzonr.spotistats.presentation.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,9 +20,5 @@ class MainCoroutineRule : TestWatcher() {
         super.finished(description)
         Dispatchers.resetMain()
         dispatcher.cleanupTestCoroutines()
-    }
-
-    fun runBlockingTest(block: suspend TestCoroutineScope.() -> Unit) {
-        dispatcher.runBlockingTest(block)
     }
 }

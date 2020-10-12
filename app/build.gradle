@@ -103,7 +103,6 @@ dependencies {
     implementation project (':domain')
     implementation project (':presentation')
     implementation project (':data')
-    implementation project(':roxie-1.0.1')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
@@ -135,6 +134,7 @@ dependencies {
     implementation "org.koin:koin-android-ext:${versions.koin}"
 
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation "cz.levinzonr:roxie:${versions.roxie}"
 
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
@@ -150,10 +150,6 @@ dependencies {
     // required if you want to use Mockito for Android tests
     androidTestImplementation "org.mockito:mockito-android:${versions.mockito}"
 
-    //For Espresso UI testing
-    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:${versions.espresso}"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:${versions.espresso}"
 
     // The following section is only used to force the latest version to resolve conflicts
     implementation "androidx.arch.core:core-common:$versions.archCore"

@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import java.util.*
 
-class SpaceXLaunchFilterViewModel(
+open class SpaceXLaunchFilterViewModel(
     private val getAllRocketsInteractor: GetAllRocketsInteractor
 ) : BaseViewModel<Action, Change, State>() {
     override val initialState: State = State()

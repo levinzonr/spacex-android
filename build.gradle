@@ -23,7 +23,7 @@ buildscript {
             material           : '1.1.0-alpha09',
             archCore           : '2.0.1',
             navigation         : '2.1.0',
-            koin               : '2.1.0',
+            koin               : '2.0.1',
             roxie              : '1.0.2'
 
     ]
