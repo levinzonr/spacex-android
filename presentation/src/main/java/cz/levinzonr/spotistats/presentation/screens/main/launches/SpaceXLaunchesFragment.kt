@@ -31,6 +31,11 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
 
     private val adapter by lazy { SpaceXLaunchesAdapter() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.dispatch(Action.Init(mode))
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

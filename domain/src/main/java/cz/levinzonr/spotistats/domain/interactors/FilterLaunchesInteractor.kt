@@ -7,6 +7,7 @@ import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 class FilterLaunchesInteractor : Interactor<FilterLaunchesInteractor.Input, List<SpaceXLaunch>> {
 
     override suspend fun invoke(input: Input): List<SpaceXLaunch> {
+        input.filter ?: return input.launches
         return input.launches
             .filterByDateInterval(input.filter.interval)
             .filterByRocketIds(input.filter.rocketsIds)
@@ -26,5 +27,5 @@ class FilterLaunchesInteractor : Interactor<FilterLaunchesInteractor.Input, List
     }
 
 
-    data class Input(val launches: List<SpaceXLaunch>, val filter: SpaceXLaunchFilter)
+    data class Input(val launches: List<SpaceXLaunch>, val filter: SpaceXLaunchFilter?)
 }
