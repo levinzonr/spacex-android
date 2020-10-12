@@ -24,7 +24,7 @@ buildscript {
             archCore           : '2.0.1',
             navigation         : '2.1.0',
             koin               : '2.1.0',
-            roxie              : '1.0.0-test'
+            roxie              : '1.0.2'
 
     ]
 
@@ -64,10 +64,10 @@ allprojects {
 
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/levinzonr/roxie")
+            url = uri("https://maven.pkg.github.com/levinzonr/roxie-coroutines")
             credentials {
                 username = 'levinzonr'
-                password = 'token'
+                password = '1a8bbcd404322ddd4578d8d9be302596af9ed80b'
             }
 
         }
