@@ -69,7 +69,7 @@ class PastLaunchesViewModelTest {
 
 
     @Test
-    fun `Given Launches failed to load, when action Init is received, then state contains empty lists`() {
+    fun `Given Launches failed to load, when action Init is received, then state contains empty lists and error flag`() {
         // GIVEN
         coEvery { getUpcomingLaunchesInteractor.invoke() } throws Exception()
         coEvery { getPastLaunchesInteractor.invoke() } throws Exception()
@@ -81,13 +81,13 @@ class PastLaunchesViewModelTest {
         // THEN
         verifyOrder {
             observer.onChanged(State(isLoading = true))
-            observer.onChanged(State(isLoading = false, launches = listOf()))
+            observer.onChanged(State(isLoading = false, launches = listOf(), isErrorView = true))
         }
     }
 
 
     @Test
-    fun `Given State contains Launches, when FilterStateChanged action is received with non-null filter, then State contains subset of launches`() {
+    fun `Given State contains Launches, when FilterStateChanged action is received with non-null filter, then State contains subset of launches and error`() {
         // GIVEN
         val filtered = allLaunches.subList(0, 10)
         coEvery { getPastLaunchesInteractor.invoke() } returns allLaunches

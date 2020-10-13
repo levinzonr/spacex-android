@@ -8,8 +8,14 @@ import cz.levinzonr.spotistats.domain.models.SpaceXLaunchFilter
 
 data class State(
     val launches: List<SpaceXLaunch> = listOf(),
-    val isLoading: Boolean = false
-) : BaseState
+    val isLoading: Boolean = false,
+    val isErrorView: Boolean = false
+) : BaseState {
+
+    val isEmptyView: Boolean
+        get() = !isErrorView && !isLoading && launches.isEmpty()
+
+}
 
 enum class Mode {
     Upcoming, Past
@@ -18,6 +24,7 @@ enum class Mode {
 sealed class Change : BaseChange {
     data class LaunchesLoaded(val items: List<SpaceXLaunch>, val filter: SpaceXLaunchFilter? = null) : Change()
     object LaunchesLoading : Change()
+    object LaunchesLoadingError: Change()
 }
 
 sealed class Action : BaseAction {

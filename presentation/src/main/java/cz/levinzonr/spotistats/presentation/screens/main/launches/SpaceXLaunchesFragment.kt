@@ -15,6 +15,7 @@ import cz.levinzonr.spotistats.presentation.R
 import cz.levinzonr.spotistats.presentation.extensions.observeNonNull
 import cz.levinzonr.spotistats.presentation.screens.main.launches.detail.SpaceXLaunchDetailFragmentDirections
 import cz.levinzonr.spotistats.presentation.screens.main.launches.filter.SpaceXLaunchFilterViewModel
+import kotlinx.android.synthetic.main.include_error_view.*
 import org.koin.android.viewmodel.ext.android.getSharedViewModel
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import cz.levinzonr.spotistats.presentation.screens.main.launches.filter.Action as FilterAction
@@ -62,6 +63,10 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
         launchesClearFiltersBtn.setOnClickListener {
             filterViewModel?.dispatch(FilterAction.ClearFiltersButtonPressed)
         }
+
+        retryButton.setOnClickListener {
+            viewModel.dispatch(Action.Init(mode, filterViewModel?.observableState?.value?.currentFilter))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -80,10 +85,11 @@ abstract class SpaceXLaunchesFragment : BaseFragment<State>() {
     }
 
     override fun renderState(state: State) {
-        launchesRv.isGone = state.isLoading
+        launchesRv.isGone = state.isLoading || state.launches.isEmpty()
         adapter.submitList(state.launches)
         progressBar.isVisible = state.isLoading
-        emptyView.isVisible = state.launches.isEmpty() && !state.isLoading
+        emptyView.isVisible = state.isEmptyView
+        errorView.isVisible = state.isErrorView
     }
 
 

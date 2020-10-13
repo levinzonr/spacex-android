@@ -11,6 +11,11 @@
         android:visibility="gone"
         layout="@layout/include_empty_state"/>
 
+    <include
+        android:id="@+id/errorView"
+        android:visibility="gone"
+        layout="@layout/include_error_view"/>
+
     <FrameLayout
         android:visibility="gone"
         android:background="?colorSurface"

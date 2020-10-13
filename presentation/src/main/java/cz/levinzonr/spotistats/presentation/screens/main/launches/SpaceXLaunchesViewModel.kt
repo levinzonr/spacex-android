@@ -24,12 +24,15 @@ class SpaceXLaunchesViewModel(
     private var allLaunches: List<SpaceXLaunch> = listOf()
 
     override val reducer: suspend (state: State, change: Change) -> State = { state, change ->
+        Timber.d("Change: $change")
         when (change) {
             is Change.LaunchesLoaded -> state.copy(
                 launches = change.items,
+                isErrorView = false,
                 isLoading = false
             )
-            is Change.LaunchesLoading -> state.copy(isLoading = true)
+            is Change.LaunchesLoading -> state.copy(isLoading = true, isErrorView = false)
+            is Change.LaunchesLoadingError -> state.copy(isLoading = false, isErrorView = true)
         }
     }
 
@@ -51,7 +54,7 @@ class SpaceXLaunchesViewModel(
             Mode.Past -> getPastLaunchesInteractor.asResult().invoke()
         }.isError {
             Timber.e(it)
-            emit(Change.LaunchesLoaded(listOf()))
+            emit(Change.LaunchesLoadingError)
         }.isSuccess {
             allLaunches = it
             if (action.filter != null)

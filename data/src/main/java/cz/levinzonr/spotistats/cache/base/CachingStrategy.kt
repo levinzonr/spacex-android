@@ -47,7 +47,8 @@ abstract class CachingStrategy<T>(configuration: CachingConfiguration) {
         } catch (e: Exception) {
             when (remoteFallback) {
                 CachingConfiguration.RemoteFallback.RETURN_CACHE -> {
-                     cachedSource.invoke() ?: throw e
+                    val cache = cachedSource.invoke()
+                    if (cacheIsValid(cache)) requireNotNull(cache) else throw e
                 }
                 CachingConfiguration.RemoteFallback.THROW_ERROR -> {
                     throw e
